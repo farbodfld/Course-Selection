@@ -1,9 +1,9 @@
 const dbConfig = require('../config/db.config.js')
 const mongoose = require('mongoose')
 
-const db ={}
-db.mongoose = mongoose
-db.url = dbConfig.uri
-db.models = require('./model.js')(mongoose)
+const studentDB ={}
+studentDB.mongoose = mongoose
+studentDB.url = dbConfig.uri
+studentDB.models = require('./studentModel.js')(mongoose)
 
-module.exports = db
+module.exports = studentDB
