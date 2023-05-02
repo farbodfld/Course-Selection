@@ -16,4 +16,9 @@ EducationalManagerDB.mongoose = mongoose
 EducationalManagerDB.url = dbConfig.uri
 EducationalManagerDB.models = require('./educationalManagerModel.js')(mongoose)
 
-module.exports = {studentDB, professorDB, EducationalManagerDB}
+const ApprovedCourseDB ={}
+ApprovedCourseDB.mongoose = mongoose
+ApprovedCourseDB.url = dbConfig.uri
+ApprovedCourseDB.models = require('./approvedCourseModel.js')(mongoose)
+
+module.exports = {studentDB, professorDB, EducationalManagerDB, ApprovedCourseDB}
