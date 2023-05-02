@@ -2,7 +2,7 @@ const userSchema = require('./userModel')
 
 module.exports = mongoose => {
 
-    const StudentSchema = new Schema({
+    const StudentSchema = new mongoose.Schema({
         ...userSchema.obj,
         educationalLevel: String,
         entryYear: Number,
