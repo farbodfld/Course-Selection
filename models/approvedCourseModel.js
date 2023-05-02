@@ -5,7 +5,7 @@ module.exports = mongoose => {
         prerequisites: [String],
         corequirements: [String],
         unit: Number,
-      })
+    })
 
     const ApprovedCourse = mongoose.model('ApprovedCourse', approvedCourseSchema);    
     return ApprovedCourse
