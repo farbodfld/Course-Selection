@@ -1,13 +1,13 @@
-const userSchema = require('./userModel')
+const BaseUser = require('./userModel')
+const mongoose = require("mongoose");
 
-module.exports = mongoose => {
-
-    const EducationalManagerSchema = new mongoose.Schema({
-        ...userSchema.obj,
+const EducationalManagerSchema = new mongoose.Schema(
+    {
         faculty: String,
-    })
+    },
+    {
+        timesstamps: true,
+    }
+);
 
-    const EducationalManager = mongoose.model('EducationalManager', EducationalManagerSchema)
-    
-    return EducationalManager
-}
+module.exports = BaseUser.discriminator("EducationalManager", EducationalManagerSchema);

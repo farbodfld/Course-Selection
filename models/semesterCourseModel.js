@@ -1,17 +1,19 @@
 const approvedCourseSchema = require('./approvedCourseModel')
+const mongoose = require("mongoose");
 
-module.exports = mongoose => {
 
-    const semesterCourseSchema = new mongoose.Schema({
-        ...approvedCourseSchema.obj,
+const semesterCourseSchema = new mongoose.Schema(
+    {
         classDateTime: Date,
         examDateTime: Date,
         examLocation: String,
         lecturer: String,
         capacity: Number,
         academicSemester: String,
-    })
+    },
+    {
+        timestamps: true,
+    }
+);
 
-    const SemesterCourse = mongoose.model('SemesterCourse', semesterCourseSchema);
-    return SemesterCourse
-}
+module.exports = approvedCourseSchema.discriminator("SemesterCourse", semesterCourseSchema);

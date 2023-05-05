@@ -1,12 +1,15 @@
-module.exports = mongoose => {
+const mongoose = require("mongoose");
 
-    const approvedCourseSchema = new mongoose.Schema({
+const approvedCourseSchema = new mongoose.Schema(
+    {
         courseName: String,
         prerequisites: [String],
         corequirements: [String],
         unit: Number,
-    })
+    },
+    {
+        timestamps: true,
+    }
+);
 
-    const ApprovedCourse = mongoose.model('ApprovedCourse', approvedCourseSchema);    
-    return ApprovedCourse
-}
+module.exports = mongoose.model('ApprovedCourse', approvedCourseSchema)

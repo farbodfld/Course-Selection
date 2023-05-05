@@ -1,17 +1,25 @@
-const userSchema = require('./userModel')
+const BaseUser = require('./userModel')
+const mongoose = require("mongoose");
 
-module.exports = mongoose => {
-
-    const StudentSchema = new mongoose.Schema({
-        ...userSchema.obj,
-        educationalLevel: String,
+const StudentSchema = new mongoose.Schema(
+    {
+        educationalLevel:
+        {
+            type: String,
+            enum: ["bachelor", "master", "PHD"],
+        },
         entryYear: Number,
-        incomingSemester: String,
+        incomingSemester: 
+        {
+            type: String,
+            enum: ["Fall", "Winter", "Spring", "Summer"],
+        },
         GPA: Number,
         faculty: String,
-    })
+    },
+    {
+        timestamps: true,
+    }
+);
 
-    const Student = mongoose.model('Student', StudentSchema)
-    
-    return Student 
-}
+module.exports = BaseUser.discriminator("Student", StudentSchema);

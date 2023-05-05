@@ -1,14 +1,15 @@
-const userSchema = require('./userModel')
+const BaseUser = require('./userModel')
+const mongoose = require('mongoose')
 
-module.exports = mongoose => {
+const ProfessorSchema = new mongoose.Schema(
+  {
+    faculty: String,
+    field: String,
+    order: String,
+  },
+  {
+    timestamps: true,
+  }
+);
 
-    const ProfessorSchema = new mongoose.Schema({
-        ...userSchema.obj,
-        faculty: String,
-        order: String,
-      });
-
-      const Professor = mongoose.model('Professor', ProfessorSchema)
-    
-    return Professor
-}
+module.exports = BaseUser.discriminator("Professor", ProfessorSchema);
