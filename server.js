@@ -9,7 +9,12 @@ const app = express();
 app.use(express.json())
 
 // admin APIs routes
-app.use("/api/admin", require("./routes/professorRoutes"));
+const professorRoutes = require("./routes/professorRoutes")
+app.use("/api/admin", professorRoutes);
+
+// Users APIs routes
+const adminRoutes = require("./routes/adminRoutes")
+app.use("/api", adminRoutes)
 
 
 const PORT = process.env.port || 8080 
