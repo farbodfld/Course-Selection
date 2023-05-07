@@ -8,10 +8,9 @@ const app = express();
 
 app.use(express.json())
 
-// routes
-app.get('/', (req, res) => {
-    res.send("Hello API")
-})
+// admin APIs routes
+app.use("/api/admin", require("./routes/professorRoutes"));
+
 
 const PORT = process.env.port || 8080 
 
