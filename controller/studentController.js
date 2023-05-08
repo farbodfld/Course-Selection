@@ -39,4 +39,15 @@ const createStudent = asyncHandler(async (req, res) => {
   res.status(201).json(student)
 })
 
-module.exports = {createStudent}
+const getStudents = asyncHandler(async (req, res) => {
+  if (req.user.role === "admin" || req.user.role === "manager") {
+      let students = await StudentObject.find()
+      res.status(200).json(students)
+  } else {
+      res.status(401)
+      console.log("Unauthorized: You are not permitioned!")
+      throw new Error("Unauthorized")
+  }
+})
+
+module.exports = {createStudent, getStudents}
