@@ -24,19 +24,32 @@ const createProfessor = asyncHandler(async (req, res) => {
     res.status(201).json(Professor);
 });
 
+const getProfessors = asyncHandler(async (req, res) => {
+    if (req.user.role === "admin" || req.user.role === "manager") {
+        const professors = await ProfessorObject.find()
+        res.status(200).json(professors)
+    } else {
+        res.status(401)
+        console.log("Unauthorized: You are not permitioned!")
+        throw new Error("Unauthorized")
+    }
+})
+
 const getProfessor = asyncHandler(async (req, res) => {
     if (req.user.role === "admin" || req.user.role === "manager") {
-        const professor = await ProfessorInstant.findById(req.params.id);
+        const professor = await ProfessorObject.findById(req.params.id)
         if (!professor) {
-            res.status(404);
-            throw new Error("not found");
+            res.status(404)
+            console.log("Not Found: The Professor dosen't exist!")
+            throw new Error("Not Found")
         }
-        res.status(200).json(professor);
+        res.status(200).json(professor)
     } else {
-        res.status(400);
-        throw new Error("you are not permitioned");
+        res.status(401)
+        console.log("Unauthorized: You are not permitioned!")
+        throw new Error("Unauthorized")
     }
 
-});
+})
 
-module.exports = {createProfessor, getProfessor}
+module.exports = {createProfessor, getProfessors, getProfessor}
