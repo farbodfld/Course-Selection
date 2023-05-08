@@ -66,4 +66,34 @@ const getStudent = asyncHandler(async (req, res) => {
   }
 })
 
-module.exports = {createStudent, getStudents, getStudent}
+const updateStudent = asyncHandler(async (req, res) => {
+  if (req.user.role === "admin" || req.user.role === "student") {
+      let student = await StudentObject.findById(req.params.id)
+      if (!student) {
+          res.status(404)
+          console.log("Not Found: student did not found!!")
+          throw new Error("Not Found")
+      }
+
+      if (req.user.role === "student"){
+          if (!(req.user.id === student.id)){
+              res.status(403)
+              console.log("Forbidden: student is not abale to make changes!")
+              throw new Error("Forbidden")
+          }
+      }
+
+      let updatedStudent = await StudentObject.findByIdAndUpdate(
+          req.params.id,
+          req.body,
+          {new: true}
+      )
+      res.status(200).json(updatedStudent);
+  } else {
+      res.status(401)
+      console.log("Unauthorized: You are not permitioned!")
+      throw new Error("Unauthorized")
+  }
+})
+
+module.exports = {createStudent, getStudents, getStudent, updateStudent}
