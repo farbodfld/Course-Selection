@@ -50,4 +50,20 @@ const getStudents = asyncHandler(async (req, res) => {
   }
 })
 
-module.exports = {createStudent, getStudents}
+const getStudent = asyncHandler(async (req, res) => {
+  if (req.user.role === "admin" || req.user.role === "manager") {
+      let student = await StudentObject.findById(req.params.id)
+      if (!student) {
+          res.status(404)
+          console.log("Not Found: The Student dosen't exist!")
+          throw new Error("Not Found")
+      }
+      res.status(200).json(student)
+  } else {
+      res.status(401)
+      console.log("Unauthorized: You are not permitioned!")
+      throw new Error("Unauthorized")
+  }
+})
+
+module.exports = {createStudent, getStudents, getStudent}
