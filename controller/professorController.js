@@ -3,12 +3,13 @@ const ProfessorObject = require("../models/professorModel");
 const bcrypt = require("bcrypt");
 
 const createProfessor = asyncHandler(async (req, res) => {
-    console.log(req.user);
+    console.log("admin is: ", req.user);
     if (req.user.role !== "admin") {
         res.status(401);
         console.log("you are not admin");
         throw new Error("Unauthorized");
     }
+    
     console.log("req is : ", req.body);
     const input = {firstname, surname, userNumber, password, email, mobilePhone, role, faculty, field, order} = req.body;
     if (!input) {
