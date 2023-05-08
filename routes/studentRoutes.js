@@ -17,4 +17,7 @@ router.route("/student/:id").get(student_controller.getStudent)
 // PUT: UPDATE STUDENT PROFILE ADMIN OR HIMSELF
 router.route("/student/:id").put(student_controller.updateStudent)
 
+// DELETE: DELETE STUDENT BY ADMIN
+router.route("/student/:id").delete(student_controller.deleteStudent)
+
 module.exports = router

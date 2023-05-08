@@ -96,4 +96,22 @@ const updateStudent = asyncHandler(async (req, res) => {
   }
 })
 
-module.exports = {createStudent, getStudents, getStudent, updateStudent}
+const deleteStudent = asyncHandler(async (req, res) => {
+  if (req.user.role !== "admin") {
+      res.status(400)
+      console.log("Bad Request: You are not admin!")
+      throw new Error("Bad Request")
+  }
+
+  let student = await StudentObject.findById(req.params.id)
+  if (!student) {
+      res.status(404)
+      console.log("Not Found: student not found!")
+      throw new Error("Not Found")
+  }
+
+  await StudentObject.deleteOne(student);
+  res.status(200).json(student);
+})
+
+module.exports = {createStudent, getStudents, getStudent, updateStudent, deleteStudent}
