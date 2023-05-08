@@ -80,7 +80,7 @@ const login = asyncHandler(async (req, res) => {
                 },
             },
             process.env.TOKEN_SECERT,
-            {expiresIn: "5m"}
+            {expiresIn: "500m"}
         );
         res.status(200).json({accessToken});
     } else {
