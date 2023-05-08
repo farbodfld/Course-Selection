@@ -11,22 +11,22 @@ const createProfessor = asyncHandler(async (req, res) => {
     }
     
     console.log("req is : ", req.body);
-    const input = {firstname, surname, userNumber, password, email, mobilePhone, role, faculty, field, order} = req.body;
+    let input = {firstname, surname, userNumber, password, email, mobilePhone, role, faculty, field, order} = req.body;
     if (!input) {
         res.status(400);
         console.log("all fieldes should be written")
         throw new Error("Bad Request");
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    let hashedPassword = await bcrypt.hash(password, 10);
     console.log("Hashed Password: ", hashedPassword);
-    const Professor = await ProfessorObject.create(input);
+    let Professor = await ProfessorObject.create(input);
     res.status(201).json(Professor);
 });
 
 const getProfessors = asyncHandler(async (req, res) => {
     if (req.user.role === "admin" || req.user.role === "manager") {
-        const professors = await ProfessorObject.find()
+        let professors = await ProfessorObject.find()
         res.status(200).json(professors)
     } else {
         res.status(401)
@@ -37,7 +37,7 @@ const getProfessors = asyncHandler(async (req, res) => {
 
 const getProfessor = asyncHandler(async (req, res) => {
     if (req.user.role === "admin" || req.user.role === "manager") {
-        const professor = await ProfessorObject.findById(req.params.id)
+        let professor = await ProfessorObject.findById(req.params.id)
         if (!professor) {
             res.status(404)
             console.log("Not Found: The Professor dosen't exist!")
@@ -52,4 +52,39 @@ const getProfessor = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = {createProfessor, getProfessors, getProfessor}
+const updateProfessor = asyncHandler(async (req, res) => {
+    if (req.user.role === "admin" || req.user.role === "professor") {
+        let professor = await ProfessorObject.findById(req.params.id)
+        if (!professor) {
+            res.status(404)
+            console.log("Not Found: Professor does not found!!")
+            throw new Error("Not Found")
+        }
+
+        // if (!(req.user.role === "professor" && req.user.id === professor.id)) {
+        //     res.status(403)
+        //     throw new Error("Professor not abele to do that")
+        // }
+
+        if (req.user.role === "professor"){
+            if (!(req.user.id === professor.id)){
+                res.status(403)
+                console.log("Forbidden: Professor is not abale to make changes!")
+                throw new Error("Forbidden")
+            }
+        }
+
+        let updatedProfessor = await ProfessorObject.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {new: true}
+        )
+        res.status(200).json(updatedProfessor);
+    } else {
+        res.status(401)
+        console.log("Unauthorized: You are not permitioned!")
+        throw new Error("Unauthorized")
+    }
+})
+
+module.exports = {createProfessor, getProfessors, getProfessor, updateProfessor}
