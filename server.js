@@ -10,11 +10,12 @@ app.use(express.json())
 
 // admin APIs routes
 const professorRoutes = require("./routes/professorRoutes")
-app.use("/api/admin", professorRoutes);
+const studentRoutes = require("./routes/studentRoutes")
+app.use("/api/admin", professorRoutes, studentRoutes)
 
 // Users APIs routes
-const adminRoutes = require("./routes/adminRoutes")
-app.use("/api", adminRoutes)
+const userRoutes = require("./routes/userRoutes")
+app.use("/api", userRoutes, professorRoutes)
 
 
 const PORT = process.env.port || 8080 

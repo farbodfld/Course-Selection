@@ -11,7 +11,19 @@ const createProfessor = asyncHandler(async (req, res) => {
     }
     
     console.log("req is : ", req.body)
-    let input = {firstname, surname, userNumber, password, email, mobilePhone, role, faculty, field, order} = req.body
+    let input = {
+        firstname,
+        surname,
+        userNumber,
+        password,
+        email,
+        mobilePhone,
+        role,
+        faculty,
+        field,
+        order
+    } = req.body
+
     if (!input) {
         res.status(400)
         console.log("all fieldes should be written")

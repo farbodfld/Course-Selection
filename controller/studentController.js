@@ -1,40 +1,42 @@
-const studentDB = require('../models')
-const Student = studentDB.models
+const asyncHandler = require("express-async-handler");
+const StudentObject = require("../models/studentModel");
+const bcrypt = require("bcrypt");
 
-exports.studentID = async (req, res) => {
-  const { id } = req.params;
-  const { name, surname, userNumber, password, email, mobilePhone, educationalLevel, entryYear, incomingSemester, GPA, faculty } = req.body;
-
-  try {
-    const student = await Student.findById(id);
-
-    if (!student) {
-      return res.status(404).json({ message: 'Student not found' });
-    }
-
-    // Check if the ID sent is related to the student himself
-    if (student.user.userNumber !== userNumber) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-
-    // Update the student's information
-    student.user.name = name;
-    student.user.surname = surname;
-    student.user.password = password;
-    student.user.email = email;
-    student.user.mobilePhone = mobilePhone;
-    student.educationalLevel = educationalLevel;
-    student.entryYear = entryYear;
-    student.incomingSemester = incomingSemester;
-    student.GPA = GPA;
-    student.faculty = faculty;
-
-    await student.save();
-
-    res.json(student);
-  } 
-  catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+const createStudent = asyncHandler(async (req, res) => {
+  console.log("admin is: ", req.user)
+  if (req.user.role !== "admin") {
+      res.status(401)
+      console.log("you are not admin")
+      throw new Error("Unauthorized")
   }
-}
+  
+  console.log("req is : ", req.body)
+  let input = {
+      firstname,
+      surname,
+      userNumber,
+      password,
+      email,
+      mobilePhone,
+      role,
+      educationalLevel,
+      entryYear,
+      incomingSemester,
+      GPA,
+      faculty
+  } = req.body
+
+  if (!input) {
+      res.status(400)
+      console.log("all fieldes should be written")
+      throw new Error("Bad Request")
+  }
+
+  let hashedPassword = await bcrypt.hash(password, 10)
+  console.log("Hashed Password: ", hashedPassword)
+
+  let student = await StudentObject.create(input)
+  res.status(201).json(student)
+})
+
+module.exports = {createStudent}
