@@ -87,4 +87,22 @@ const updateProfessor = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = {createProfessor, getProfessors, getProfessor, updateProfessor}
+const deleteProfessor = asyncHandler(async (req, res) => {
+    if (req.user.role !== "admin") {
+        res.status(400)
+        console.log("Bad Request: You are not admin!")
+        throw new Error("Bad Request")
+    }
+
+    let professor = await ProfessorObject.findById(req.params.id)
+    if (!professor) {
+        res.status(404)
+        console.log("Not Found: Professor not found!")
+        throw new Error("Not Found")
+    }
+
+    await ProfessorObject.deleteOne(professor);
+    res.status(200).json(professor);
+})
+
+module.exports = {createProfessor, getProfessors, getProfessor, updateProfessor, deleteProfessor}

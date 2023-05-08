@@ -17,4 +17,7 @@ router.route("/professor/:id").get(professor_controller.getProfessor)
 // PUT: EDIT/UPDATE PROFESSOR PROFILE BY ADMIN OR HIMSELF
 router.route("/professor/:id").put(professor_controller.updateProfessor)
 
+// DELETE: DELETE PROFESSOR BY ID
+router.route("/professor/:id").delete(professor_controller.deleteProfessor)
+
 module.exports = router
