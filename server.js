@@ -15,7 +15,7 @@ app.use("/api/admin", professorRoutes, studentRoutes)
 
 // Users APIs routes
 const userRoutes = require("./routes/userRoutes")
-app.use("/api", userRoutes, professorRoutes)
+app.use("/api", userRoutes, professorRoutes, studentRoutes)
 
 
 const PORT = process.env.port || 8080 

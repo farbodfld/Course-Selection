@@ -114,4 +114,10 @@ const deleteStudent = asyncHandler(async (req, res) => {
   res.status(200).json(student);
 })
 
-module.exports = {createStudent, getStudents, getStudent, updateStudent, deleteStudent}
+module.exports = {
+  createStudent,
+  getStudents,
+  getStudent,
+  updateStudent,
+  deleteStudent
+}
