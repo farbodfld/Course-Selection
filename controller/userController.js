@@ -14,12 +14,14 @@ const creatAdmin = asyncHandler(async (req, res) => {
         role
     } = req.body
 
+    console.log(req.body)
+
     if (firstname && surname && userNumber && password && email && mobilePhone && role){
         // check if admin exist or not!
-        let userAvailable = await User.findOne({role});
-        if (userAvailable) {
-            res.status(400);
-            console.log("Bad Request: an Admin already registered!")
+        let userExist = await User.findOne({role})
+        if (userExist) {
+            res.status(400)
+            console.log("User already exist: ", userExist)
             throw new Error("Bad Request")
         }
 
