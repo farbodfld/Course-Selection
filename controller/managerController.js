@@ -91,9 +91,33 @@ const updateManager = asyncHandler(async (req, res) => {
     }
 })
 
+const deleteManager = asyncHandler(async (req, res) => {
+    if (req.user.role !== "admin") {
+        res.status(400)
+        console.log("Bad Request: You are not admin!")
+        throw new Error("Bad Request")
+    }
+
+    let manager = await ManagerObject.findById(req.params.id)
+    if (!manager) {
+        res.status(404)
+        console.log("Not Found: manager not found!")
+        throw new Error("Not Found")
+    }
+
+    await ManagerObject.deleteOne(manager);
+    res.status(200).json(manager);
+})
+
+
 module.exports = {
     createManager,
+
     getManagers,
+
     getManager,
-    updateManager
+
+    updateManager,
+
+    deleteManager
 }
