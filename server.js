@@ -8,17 +8,17 @@ const app = express();
 
 app.use(express.json())
 
-// admin APIs routes
-const professorRoutes = require("./routes/professorRoutes")
-const studentRoutes = require("./routes/studentRoutes")
-const managerRoutes = require("./routes/managerRoutes")
+let userRoutes = require("./routes/userRoutes")
+let professorRoutes = require("./routes/professorRoutes")
+let studentRoutes = require("./routes/studentRoutes")
+let managerRoutes = require("./routes/managerRoutes")
 let courseRoutes = require("./routes/courseRoutes")
-app.use("/api/admin", professorRoutes, studentRoutes, managerRoutes)
 
 // Users APIs routes
-const userRoutes = require("./routes/userRoutes")
 app.use("/api", userRoutes, professorRoutes, studentRoutes, courseRoutes)
 
+// admin APIs routes
+app.use("/api/admin", professorRoutes, studentRoutes, managerRoutes)
 
 const PORT = process.env.port || 8080 
 
