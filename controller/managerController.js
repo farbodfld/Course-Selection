@@ -61,8 +61,39 @@ const getManager = asyncHandler(async (req, res) => {
     }
 })
 
+const updateManager = asyncHandler(async (req, res) => {
+    if (req.user.role === "admin" || req.user.role === "professor") {
+        let manager = await ManagerObject.findById(req.params.id)
+        if (!manager) {
+            res.status(404)
+            console.log("Not Found: manager did not find!!")
+            throw new Error("Not Found")
+        }
+
+        if (req.user.role === "manager"){
+            if (!(req.user.id === professor.id)){
+                res.status(403)
+                console.log("Forbidden: manager is not abale to make changes!")
+                throw new Error("Forbidden")
+            }
+        }
+
+        let updatedManager = await ManagerObject.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {new: true}
+        )
+        res.status(200).json(updatedManager)
+    } else {
+        res.status(401)
+        console.log("Unauthorized: You are not permitioned!")
+        throw new Error("Unauthorized")
+    }
+})
+
 module.exports = {
     createManager,
     getManagers,
-    getManager
+    getManager,
+    updateManager
 }

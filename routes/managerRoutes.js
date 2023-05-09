@@ -14,4 +14,7 @@ router.route("/manager").get(manager_controller.getManagers)
 // GET: GET MANAGER BY ID
 router.route("/manager/:id").get(manager_controller.getManager)
 
+// PUT: UPDATE MANAGER BY ID
+router.route("/manager/:id").put(manager_controller.updateManager)
+
 module.exports = router
