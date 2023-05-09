@@ -64,7 +64,7 @@ const updateCourse = asyncHandler(async (req, res) => {
         req.params.id,
         req.body,
         {new: true}
-    );
+    )
 
     res.status(200).json(updatedCourse);
 })
