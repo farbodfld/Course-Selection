@@ -6,7 +6,7 @@ const EducationalManagerSchema = new mongoose.Schema(
         faculty: String,
     },
     {
-        timesstamps: true,
+        timestamps: true,
     }
 );
 

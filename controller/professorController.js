@@ -117,4 +117,10 @@ const deleteProfessor = asyncHandler(async (req, res) => {
     res.status(200).json(professor);
 })
 
-module.exports = {createProfessor, getProfessors, getProfessor, updateProfessor, deleteProfessor}
+module.exports = {
+    createProfessor,
+    getProfessors,
+    getProfessor,
+    updateProfessor,
+    deleteProfessor
+}

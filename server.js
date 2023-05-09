@@ -11,7 +11,8 @@ app.use(express.json())
 // admin APIs routes
 const professorRoutes = require("./routes/professorRoutes")
 const studentRoutes = require("./routes/studentRoutes")
-app.use("/api/admin", professorRoutes, studentRoutes)
+const managerRoutes = require("./routes/managerRoutes")
+app.use("/api/admin", professorRoutes, studentRoutes, managerRoutes)
 
 // Users APIs routes
 const userRoutes = require("./routes/userRoutes")
