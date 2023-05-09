@@ -15,3 +15,4 @@ router.route("/course").get(course_controller.getCourses)
 router.route("/course/:id").get(course_controller.getCourse)
 
 module.exports = router
+
