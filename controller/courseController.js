@@ -39,12 +39,12 @@ const getCourses = asyncHandler(async (req, res) => {
 })
 
 const getCourse = asyncHandler(async (req, res) => {
-    let course = await CourseObject.findById(req.params.id);
+    let course = await CourseObject.findById(req.params.id)
     if (!course) {
-        res.status(404);
-        throw new Error("Not Found");
+        res.status(404)
+        throw new Error("Not Found")
     }
-    res.status(200).json(course);
+    res.status(200).json(course)
 })
 
 const updateCourse = asyncHandler(async (req, res) => {
@@ -58,19 +58,36 @@ const updateCourse = asyncHandler(async (req, res) => {
     if (!course) {
         res.status(404)
         console.log("Not Found: Course not found")
-        throw new Error("Not Found");
+        throw new Error("Not Found")
     }
     let updatedCourse = await CourseObject.findByIdAndUpdate(
         req.params.id,
         req.body,
         {new: true}
     )
-    res.status(200).json(updatedCourse);
+    res.status(200).json(updatedCourse)
+})
+
+const deleteCourse = asyncHandler(async (req, res) => {
+    if (req.user.role !== "manager") {
+        res.status(401)
+        console.log("Unauthorized: you are not Educational Manager")
+        throw new Error("Unauthorized")
+    }
+    let course = await CourseObject.findById(req.params.id)
+    if (!course) {
+        res.status(404)
+        console.log("Not Found: Course not found")
+        throw new Error("Not Found")
+    }
+    await CourseObject.deleteOne(course)
+    res.status(200).json(course)
 })
 
 module.exports = {
     createCourse,
     getCourses,
     getCourse,
-    updateCourse
+    updateCourse,
+    deleteCourse
 }

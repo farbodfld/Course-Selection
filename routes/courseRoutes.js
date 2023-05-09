@@ -17,4 +17,7 @@ router.route("/course/:id").get(course_controller.getCourse)
 // PUT: UPDATE COURSE INFORMATION
 router.route("/course/:id").put(course_controller.updateCourse)
 
+// DELETE: COURSE
+router.route("/course/:id").delete(course_controller.deleteCourse)
+
 module.exports = router
