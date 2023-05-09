@@ -61,7 +61,6 @@ const getProfessor = asyncHandler(async (req, res) => {
         console.log("Unauthorized: You are not permitioned!")
         throw new Error("Unauthorized")
     }
-
 })
 
 const updateProfessor = asyncHandler(async (req, res) => {
