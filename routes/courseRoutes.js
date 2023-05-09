@@ -11,4 +11,7 @@ router.route("/course").post(course_controller.createCourse)
 // GET: LIST OF COURSES
 router.route("/course").get(course_controller.getCourses)
 
+// GET: COURSE BY ID
+router.route("/course/:id").get(course_controller.getCourse)
+
 module.exports = router

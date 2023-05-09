@@ -38,7 +38,17 @@ const getCourses = asyncHandler(async (req, res) => {
     res.status(200).json(courses)
 })
 
+const getCourse = asyncHandler(async (req, res) => {
+    let course = await CourseObject.findById(req.params.id);
+    if (!course) {
+        res.status(404);
+        throw new Error("Not Found");
+    }
+    res.status(200).json(course);
+})
+
 module.exports = {
     createCourse,
-    getCourses
+    getCourses,
+    getCourse
 }
