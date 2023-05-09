@@ -14,4 +14,7 @@ router.route("/course").get(course_controller.getCourses)
 // GET: COURSE BY ID
 router.route("/course/:id").get(course_controller.getCourse)
 
+// PUT: UPDATE COURSE INFORMATION
+router.route("/course/:id").put(course_controller.updateCourse)
+
 module.exports = router

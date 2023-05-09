@@ -47,8 +47,31 @@ const getCourse = asyncHandler(async (req, res) => {
     res.status(200).json(course);
 })
 
+const updateCourse = asyncHandler(async (req, res) => {
+    if (req.user.role !== "manager") {
+        res.status(401)
+        console.log("Unauthorized: you are not manager")
+        throw new Error("Unauthorized")
+    }
+
+    let course = await CourseObject.findById(req.params.id)
+    if (!course) {
+        res.status(404)
+        console.log("Not Found: Course not found")
+        throw new Error("Not Found");
+    }
+    let updatedCourse = await CourseObject.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new: true}
+    );
+
+    res.status(200).json(updatedCourse);
+})
+
 module.exports = {
     createCourse,
     getCourses,
-    getCourse
+    getCourse,
+    updateCourse
 }
