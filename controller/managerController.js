@@ -45,7 +45,24 @@ const getManagers = asyncHandler(async (req, res) => {
     }
 })
 
+const getManager = asyncHandler(async (req, res) => {
+    if (req.user.role === "admin" || req.user.role === "manager") {
+        let manager = await ManagerObject.findById(req.params.id)
+        if (!manager) {
+            res.status(404)
+            console.log("Not Found: The manager dosen't exist!")
+            throw new Error("Not Found")
+        }
+        res.status(200).json(manager)
+    } else {
+        res.status(401)
+        console.log("Unauthorized: You are not permitioned!")
+        throw new Error("Unauthorized")
+    }
+})
+
 module.exports = {
     createManager,
-    getManagers
+    getManagers,
+    getManager
 }
