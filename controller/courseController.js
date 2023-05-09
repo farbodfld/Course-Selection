@@ -33,6 +33,12 @@ const createCourse = asyncHandler(async (req, res) => {
     res.status(201).json(Course)
 })
 
+const getCourses = asyncHandler(async (req, res) => {
+    let courses = await CourseObject.find()
+    res.status(200).json(courses)
+})
+
 module.exports = {
-    createCourse
+    createCourse,
+    getCourses
 }
