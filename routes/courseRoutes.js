@@ -1,5 +1,47 @@
 const router = require("express").Router()
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Course:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the Course
+ *         courseName:
+ *           type: date
+ *           description: The courseName of your Course
+ *         prerequisites:
+ *           type: date
+ *           description: The prerequisites of your Course
+ *         corequirements:
+ *           type: string
+ *           description: The corequirements of your Course
+ *         unit:
+ *           type: string
+ *           description: The unit of your Course
+ *         classDateTime:
+ *           type: date
+ *           description: The classDateTime of your Course
+ *         examDateTime:
+ *           type: date
+ *           description: The examDateTime of your Course
+ *         examLocation:
+ *           type: string
+ *           description: The examLocation of your Course
+ *         lecturer:
+ *           type: string
+ *           description: The lecturer of your Course
+ *         capacity:
+ *           type: number
+ *           description: The capacity of your Course
+ *         academicSemester:
+ *           type: number
+ *           description: The academicSemester of your Course
+ */
+
 let course_controller = require("../controller/courseController")
 
 let tokenValidation = require("../middleware/tokenValidation")
