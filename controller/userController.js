@@ -1,7 +1,7 @@
-const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const User = require("../models/userModel");
+const asyncHandler = require("express-async-handler")
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+const User = require("../models/userModel")
 
 const creatAdmin = asyncHandler(async (req, res) => {
     const {
@@ -26,8 +26,8 @@ const creatAdmin = asyncHandler(async (req, res) => {
         }
 
         // create hash password
-        let hashedPassword = await bcrypt.hash(password, 10);
-        console.log("Hashed Password: ", hashedPassword);
+        let hashedPassword = await bcrypt.hash(password, 10)
+        console.log("Hashed Password: ", hashedPassword)
         const user = await User.create({
             firstname,
             surname,
@@ -36,17 +36,17 @@ const creatAdmin = asyncHandler(async (req, res) => {
             email,
             mobilePhone,
             role
-        });
+        })
 
         // send the request
-        console.log(`Admin created ${user}`);
+        console.log(`Admin created ${user}`)
         if (user) {
-            res.status(201).json({_id: user.id, email: user.email});
+            res.status(201).json({_id: user.id, email: user.email})
         } else {
-            res.status(400);
-            throw new Error("User data is not valid");
+            res.status(400)
+            throw new Error("User data is not valid")
         }
-        res.json({message: "Register the user"});
+        res.json({message: "Register the user"})
 
     } else {
         res.status(400)
@@ -65,11 +65,11 @@ const login = asyncHandler(async (req, res) => {
     if (!email || !password) {
         res.status(400);
         console.log("Bad Request: All fields are mandatory!")
-        throw new Error("Bad Request");
+        throw new Error("Bad Request")
     }
 
-    const user = await User.findOne({email});
-    console.log(user);
+    const user = await User.findOne({email})
+    console.log(user)
 
     //compare password with hashedpassword
     if (user && (await bcrypt.compare(password, user.password))) {
@@ -86,7 +86,7 @@ const login = asyncHandler(async (req, res) => {
         );
         res.status(200).json({accessToken});
     } else {
-        res.status(401);
+        res.status(401)
         console.log("Unauthorized: email or password is not valid!")
         throw new Error("Unauthorized");
     }

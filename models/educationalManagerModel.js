@@ -1,5 +1,5 @@
 const BaseUser = require('./userModel')
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 const EducationalManagerSchema = new mongoose.Schema(
     {
@@ -10,4 +10,4 @@ const EducationalManagerSchema = new mongoose.Schema(
     }
 );
 
-module.exports = BaseUser.discriminator("EducationalManager", EducationalManagerSchema);
+module.exports = BaseUser.discriminator("EducationalManager", EducationalManagerSchema)

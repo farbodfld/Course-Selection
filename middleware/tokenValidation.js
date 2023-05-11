@@ -19,10 +19,10 @@ const validation = asyncHandler(async (req, res, next) => {
 
         if (!token) {
             res.status(401)
-            console.log("Unauthorized: User is not authorized or token is missing!!")
+            console.log("Unauthorized: User is not authorized OR token is missing!!")
             throw new Error("Unauthorized")
         }
     }
 })
 
-module.exports = validation  
+module.exports = validation

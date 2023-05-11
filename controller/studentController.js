@@ -1,6 +1,6 @@
-const asyncHandler = require("express-async-handler");
-const StudentObject = require("../models/studentModel");
-const bcrypt = require("bcrypt");
+const asyncHandler = require("express-async-handler")
+const StudentObject = require("../models/studentModel")
+const bcrypt = require("bcrypt")
 
 const createStudent = asyncHandler(async (req, res) => {
   console.log("admin is: ", req.user)

@@ -12,4 +12,4 @@ const ProfessorSchema = new mongoose.Schema(
   }
 );
 
-module.exports = BaseUser.discriminator("Professor", ProfessorSchema);
+module.exports = BaseUser.discriminator("Professor", ProfessorSchema)

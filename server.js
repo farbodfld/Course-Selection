@@ -3,11 +3,11 @@ require("dotenv").config()
 const swaggerJsdoc = require("swagger-jsdoc")
 const swaggerUi = require("swagger-ui-express")
 
-const connectToDB = require("./config/db.config");
-connectToDB();
+const connectToDB = require("./config/db.config")
+connectToDB()
 
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 
 app.use(express.json())
 
@@ -48,7 +48,7 @@ const options = {
       ],
     },
     apis: ["./routes/*.js"],
-  };
+  }
   
   const specs = swaggerJsdoc(options);
   app.use(

@@ -84,11 +84,6 @@ const updateProfessor = asyncHandler(async (req, res) => {
             throw new Error("Not Found")
         }
 
-        // if (!(req.user.role === "professor" && req.user.id === professor.id)) {
-        //     res.status(403)
-        //     throw new Error("Professor not abele to do that")
-        // }
-
         if (req.user.role === "professor"){
             if (!(req.user.id === professor.id)){
                 res.status(403)

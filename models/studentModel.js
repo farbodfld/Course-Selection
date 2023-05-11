@@ -1,5 +1,5 @@
 const BaseUser = require('./userModel')
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 const StudentSchema = new mongoose.Schema(
     {
@@ -22,4 +22,4 @@ const StudentSchema = new mongoose.Schema(
     }
 );
 
-module.exports = BaseUser.discriminator("Student", StudentSchema);
+module.exports = BaseUser.discriminator("Student", StudentSchema)

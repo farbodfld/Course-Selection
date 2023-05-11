@@ -1,5 +1,5 @@
 const approvedCourseSchema = require('./approvedCourseModel')
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 
 const semesterCourseSchema = new mongoose.Schema(
@@ -16,4 +16,4 @@ const semesterCourseSchema = new mongoose.Schema(
     }
 );
 
-module.exports = approvedCourseSchema.discriminator("SemesterCourse", semesterCourseSchema);
+module.exports = approvedCourseSchema.discriminator("SemesterCourse", semesterCourseSchema)
