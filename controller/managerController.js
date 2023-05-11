@@ -30,7 +30,17 @@ const createManager = asyncHandler(async (req, res) => {
 
     let hashedPassword = await bcrypt.hash(password, 10)
     console.log("Hashed Password: ", hashedPassword)
-    let Manager = await ManagerObject.create(input)
+    
+    let Manager = await ManagerObject.create({
+        firstname,
+        surname,
+        userNumber,
+        password: hashedPassword,
+        email,
+        mobilePhone,
+        role,
+        faculty
+    })
     res.status(201).json(Manager)
 })
 

@@ -32,7 +32,19 @@ const createProfessor = asyncHandler(async (req, res) => {
 
     let hashedPassword = await bcrypt.hash(password, 10)
     console.log("Hashed Password: ", hashedPassword)
-    let Professor = await ProfessorObject.create(input)
+    
+    let Professor = await ProfessorObject.create({
+        firstname,
+        surname,
+        userNumber,
+        password: hashedPassword,
+        email,
+        mobilePhone,
+        role,
+        faculty,
+        field,
+        order
+    })
     res.status(201).json(Professor)
 })
 
