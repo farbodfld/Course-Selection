@@ -1,5 +1,26 @@
 const router = require("express").Router()
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Professor:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the book
+ *         faculty:
+ *           type: string
+ *           description: The faculty of your Professor
+ *         field:
+ *           type: string
+ *           description: The field of your Professor
+ *         order:
+ *           type: number
+ *           description: The order of your Professor
+ */
+
 const professor_controller = require("../controller/professorController")
 
 const tokenValidation = require("../middleware/tokenValidation")
