@@ -12,7 +12,7 @@ const router = express.Router()
  *       properties:
  *         id:
  *           type: string
- *           description: The auto-generated id of the book
+ *           description: The auto-generated id of the User
  *         firstname:
  *           type: string
  *           description: The firstname of your user

@@ -1,5 +1,20 @@
 const router = require("express").Router()
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Manager:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the Manager
+ *         faculty:
+ *           type: string
+ *           description: The faculty of your Manager
+ */
+
 const manager_controller = require("../controller/managerController")
 
 const tokenValidation = require("../middleware/tokenValidation")

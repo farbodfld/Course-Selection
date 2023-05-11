@@ -9,7 +9,7 @@ const router = require("express").Router()
  *       properties:
  *         id:
  *           type: string
- *           description: The auto-generated id of the book
+ *           description: The auto-generated id of the Student
  *         educationalLevel:
  *           type: string
  *           description: The educationalLevel of your Student
