@@ -172,6 +172,37 @@ const router = require("express").Router()
  *         description: The Professor was deleted
  *       404:
  *         description: The Professor was not found
+ * 
+ * /api/professor/{id}:
+ *   put:
+ *    security:
+ *      - bearerAuth: []
+ *    summary: Professor update his profile by the id
+ *    tags: [Professors]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The Professor id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Professor'
+ *    responses:
+ *      200:
+ *        description: The Professor was updated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Professor'
+ *      404:
+ *        description: The Professor was not found
+ *      500:
+ *        description: Some error happened
  */
 
 const professor_controller = require("../controller/professorController")
