@@ -86,7 +86,9 @@ Edit your changeable information (here you must check that the ID sent is relate
 
 must be a student, otherwise it will be answered with an appropriate error (
 * PUT /student/{ID}
-* See the list of courses with the possibility of filtering according to the field
+
+
+See the list of courses with the possibility of filtering according to the field
 * GET /courses
 * GET /course/{ID}
 ### Professor
@@ -96,3 +98,6 @@ be suitable.
 * See the list of courses with the possibility of filtering according to the field
 * GET /courses
 * GET /course/{ID}
+
+# Swagger
+Course Selection API application documented by Swagger.
