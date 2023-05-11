@@ -1,5 +1,8 @@
 require("dotenv").config()
 
+const swaggerJsdoc = require("swagger-jsdoc")
+const swaggerUi = require("swagger-ui-express")
+
 const connectToDB = require("./config/db.config");
 connectToDB();
 
@@ -19,6 +22,40 @@ app.use("/api", userRoutes, professorRoutes, studentRoutes, courseRoutes)
 
 // admin APIs routes
 app.use("/api/admin", professorRoutes, studentRoutes, managerRoutes)
+
+const options = {
+    definition: {
+      openapi: "3.0.0",
+      info: {
+        title: "Course Selection Express API with Swagger",
+        version: "1.0.0",
+        description:
+          "This is a simple Course Selection API application made with Express and documented with Swagger",
+        license: {
+          name: "MIT",
+          url: "https://spdx.org/licenses/MIT.html",
+        },
+        contact: {
+          name: "Farbod Fooladi",
+          url: "https://github.com/farbodfld",
+          email: "farbodfooladi@gmail.com",
+        },
+      },
+      servers: [
+        {
+          url: "http://localhost:9090/",
+        },
+      ],
+    },
+    apis: ["./routes/*.js"],
+  };
+  
+  const specs = swaggerJsdoc(options);
+  app.use(
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(specs)
+  )
 
 const PORT = process.env.port || 8080 
 
