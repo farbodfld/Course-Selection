@@ -1,5 +1,32 @@
 const router = require("express").Router()
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Student:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the book
+ *         educationalLevel:
+ *           type: string
+ *           description: The educationalLevel of your Student
+ *         entryYear:
+ *           type: number
+ *           description: The entryYear of your Student
+ *         incomingSemester:
+ *           type: number
+ *           description: The incomingSemester of your Student
+ *         GPA:
+ *           type: number
+ *           description: The GPA of your Student
+ *         faculty:
+ *           type: string
+ *           description: The faculty of your Student
+ */
+
 const student_controller = require("../controller/studentController")
 
 const tokenValidation = require("../middleware/tokenValidation")
