@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import './Login.css';
+import "./Login.css";
+import CloseIcon from "@mui/icons-material/Close";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showUnauthorized, setShowUnauthorized] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,18 +19,27 @@ export const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      const status = response.status;
+      if (status !== 200) {
+        setShowUnauthorized( pre => !pre )
+      } else {
+        const data = await response.json();
+      }
 
       // Process the response data
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
 
+  const handleIconClick = () => {
+    setShowUnauthorized(false )
+  }
+
   return (
-    <div className="login-div" >
+    <div className="login-div">
       <form onSubmit={handleSubmit}>
+       
         <input
           type="text"
           value={email}
@@ -41,9 +52,18 @@ export const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
+         <div className={showUnauthorized ? 'unauthorized-banner' : 'none' }>
+        
+        <CloseIcon style={ { cursor : 'pointer' } } onClick={handleIconClick} />
+        <p> 
+          You are not Authorized 
+          <br></br>
+          Put valid Email and Password
+        </p>
+      </div>
         <button type="submit">Login</button>
       </form>
-      <div ></div>
+      <div className="black"></div>
     </div>
   );
 };
