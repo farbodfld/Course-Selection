@@ -84,7 +84,7 @@ const login = asyncHandler(async (req, res) => {
             process.env.TOKEN_SECERT,
             {expiresIn: "10m"}
         );
-        res.status(200).json({accessToken});
+        res.status(200).json({accessToken , user } )
     } else {
         res.status(401)
         console.log("Unauthorized: email or password is not valid!")
