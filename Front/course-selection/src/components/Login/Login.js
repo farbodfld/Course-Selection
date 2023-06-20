@@ -22,8 +22,12 @@ export const Login = () => {
       const status = response.status;
       if (status !== 200) {
         setShowUnauthorized( pre => !pre )
+        setTimeout(() => {
+          setShowUnauthorized(prevState => !prevState);
+        }, 2000);
       } else {
         const data = await response.json();
+        console.log(data);
       }
 
       // Process the response data
