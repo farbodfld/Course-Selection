@@ -7,6 +7,7 @@ import "./App.css";
 
 import Semesters from "./components/TA/Semesters/Semesters";
 import Semester from "./components/TA/Semester/Semester";
+import Course from "./components/TA/Course/Course";
 
 function App() {
   return (
@@ -14,21 +15,15 @@ function App() {
       <Route path="/" element={<Navigate to="/login" />} />
       <Route path="/login" element={<Login />} />
       {/* TA */}
-      <Route path="/teacher-assistant" element={<TeacherAssistance />} >
-        <Route index element={ <Semesters/> } />
-        <Route path=":id" element={ <Semester/> } />
+      <Route path="/teacher-assistant" element={<TeacherAssistance />}>
+        <Route index element={<Semesters />} />
+        <Route path=":id" element={<Semester />}  /> 
+        <Route path=":id/course/:courseid" element={<Course/>} />
         
-
       </Route>
-     
-      <Route path="/teacher-assistant/terms/:id" />
-      {/* Student */}
-      <Route path="/student" />
-      <Route path="/student/terms" />
-      {/* vice principal */}
-      <Route path="/vice-principal" />
-      {/* IT Admin */}
-      <Route path="/admin" />
+
+   
+
     </Routes>
   );
 }

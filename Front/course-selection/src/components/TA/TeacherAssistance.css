@@ -12,7 +12,7 @@ nav{
 
 .main{
     display: flex;
-    height: 94.6%;
+    min-height: 93%;
 }
 
 .main > .main-items{
