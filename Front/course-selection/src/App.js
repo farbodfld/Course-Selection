@@ -9,6 +9,7 @@ import Semesters from "./components/TA/Semesters/Semesters";
 import Semester from "./components/TA/Semester/Semester";
 import Course from "./components/TA/Course/Course";
 
+
 function App() {
   return (
     <Routes>

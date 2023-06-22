@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import "./Login.css";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch, useSelector } from 'react-redux';
+
+import {setUsername} from '../../features/authSlice'
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showUnauthorized, setShowUnauthorized] = useState(false);
+  const { mode } = useSelector( (state) => state.darkMode )
+ const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +32,9 @@ export const Login = () => {
         }, 2000);
       } else {
         const data = await response.json();
-        console.log(data);
+        console.log(data.user.firstname);
+
+        dispatch( setUsername(data.user.firstname) )
       }
 
       // Process the response data
@@ -42,6 +49,7 @@ export const Login = () => {
 
   return (
     <div className="login-div">
+     
       <form onSubmit={handleSubmit}>
        
         <input
