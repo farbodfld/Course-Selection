@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import allSemesters from "../../../mockdata";
 import "./Course.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import Card from '@mui/material/Card';
 
 export default function Course() {
   let { id, courseid } = useParams();
@@ -66,7 +67,8 @@ export default function Course() {
       <TextField variant="filled" label='Search students' value={searchQuery} onChange={handleSearchChange} />
         <ul>
           {students.map((student) => (
-            <li key={student.id}>
+            <Card className="card">
+            <li key={student.id} style={{display : 'flex' , alignItems : 'center' , justifyContent : 'space-between'}}>
               <p>{student.fullName}</p>
               <div className="status-buttons">
                 <Button
@@ -89,6 +91,7 @@ export default function Course() {
                 </Button>
               </div>
             </li>
+            </Card>
           ))}
         </ul>
         <div className="btn-container">

@@ -1,7 +1,10 @@
 import React , { useState } from 'react';
-import { Link, Route , Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Card from '@mui/material/Card';
 import './Semesters.css';
 import allSemesters from "../../../mockdata";
+
+import { useSelector } from "react-redux";
 
 const Semesters = () => {
 
@@ -9,7 +12,7 @@ const Semesters = () => {
     
       const [semesters, setSemesters] = useState(allSemesters.slice(0, 10));
       const [showAll, setShowAll] = useState(false);
-    
+      const { mode } = useSelector((state) => state.darkMode);
       const handleShowMore = () => {
         setShowAll(true);
         setSemesters(allSemesters);
@@ -20,14 +23,15 @@ const Semesters = () => {
       };
 
   return (
-   <div className='semesters'>
+   <div className='semesters '>
         <p> Check the Semesters </p>
         <hr/>
         <div className='semesters-container' > 
             <ul>
             { semesters.map( (semester)=> (
                 <Link key={semester.id} to={ `/teacher-assistant/`+semester.id }> 
-                <li  > <p> {semester.name} </p>  </li></Link> 
+                <Card className='card'> <li  > <p> {semester.name} </p>  </li>  </Card>
+                </Link> 
             )   ) }
             </ul>
             <div className='btn-container'>

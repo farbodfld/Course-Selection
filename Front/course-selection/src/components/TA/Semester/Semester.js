@@ -7,6 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import TextField from "@mui/material/TextField";
+import Card from '@mui/material/Card';
 
 import { Link } from "react-router-dom";
 import allSemesters from "../../../mockdata";
@@ -95,17 +96,19 @@ export default function Semester() {
               </Button>
             </div>
           </div>
-          <h2></h2>
+       
           <ul>
             {filteredCourses.map((course, index) => (
-              <Link
+              <Link 
                 key={index}
                 to={`/teacher-assistant/${semester.id}/course/${course.id}`}
               >
+                <Card className="card">
                 <li>
                   {" "}
                   <p> {course.name} </p>{" "}
                 </li>
+                </Card>
               </Link>
             ))}
           </ul>
