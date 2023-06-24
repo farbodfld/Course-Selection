@@ -7,7 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import TextField from "@mui/material/TextField";
-import Card from '@mui/material/Card';
+import Card from "@mui/material/Card";
 
 import { Link } from "react-router-dom";
 import allSemesters from "../../../mockdata";
@@ -18,6 +18,9 @@ export default function Semester() {
   const [openDialog, setOpenDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortByStudents, setSortByStudents] = useState(null);
+  const [showAllCourses, setShowAllCourses] = useState(false);
+  const coursesPerPage = 6;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
@@ -29,10 +32,20 @@ export default function Semester() {
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
+    setCurrentPage(1); // Reset the current page when the search query changes
   };
 
   const handleSortByStudents = (criteria) => {
     setSortByStudents(criteria);
+  };
+
+  const handleShowMore = () => {
+    setShowAllCourses(true);
+  };
+
+  const handleShowLess = () => {
+    setShowAllCourses(false);
+    setCurrentPage(1); // Reset the current page when switching back to showing limited courses
   };
 
   let filteredCourses = semester ? semester.courses : [];
@@ -52,6 +65,14 @@ export default function Semester() {
       (a, b) => a.students.length - b.students.length
     );
   }
+
+  const lastIndex = currentPage * coursesPerPage;
+  const firstIndex = lastIndex - coursesPerPage;
+  const currentCourses = showAllCourses
+    ? filteredCourses
+    : filteredCourses.slice(firstIndex, lastIndex);
+
+  const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
 
   return (
     <div className="semester">
@@ -96,22 +117,37 @@ export default function Semester() {
               </Button>
             </div>
           </div>
-       
+
           <ul>
-            {filteredCourses.map((course, index) => (
-              <Link 
+            {currentCourses.map((course, index) => (
+              <Link
                 key={index}
                 to={`/teacher-assistant/${semester.id}/course/${course.id}`}
               >
                 <Card className="card">
-                <li>
-                  {" "}
-                  <p> {course.name} </p>{" "}
-                </li>
+                  <li>
+                    <p> {course.name} </p>
+                  </li>
                 </Card>
               </Link>
             ))}
           </ul>
+
+          {filteredCourses.length > coursesPerPage && (
+            <div className="btn-container">
+              {!showAllCourses ? (
+                <Button className="show-more-btn" onClick={handleShowMore}>
+                  Show More
+                </Button>
+              ) : (
+                <Button className="show-less-btn" onClick={handleShowLess}>
+                  Show Less
+                </Button>
+              )}
+            </div>
+          )}
+
+         
         </div>
       ) : (
         <h2>Semester not found.</h2>

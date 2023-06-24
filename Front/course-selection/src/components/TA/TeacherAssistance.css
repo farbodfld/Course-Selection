@@ -2,7 +2,7 @@ header{
    flex-direction: row !important;
     display: flex !important;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     position: relative !important;
 }
 .darkMode-container{
@@ -33,6 +33,7 @@ header{
 
 .main > .main-items{
    flex-grow: 5;
+   overflow: auto;
 }
 .main > .sideNav{
     flex-grow: 1;
@@ -40,7 +41,7 @@ header{
     display: none;
     box-sizing: border-box;
     position: relative;
-    height: 100vh;
+    min-height: 93vh;
     
   
  }

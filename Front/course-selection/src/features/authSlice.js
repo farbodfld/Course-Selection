@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
    username: localStorage.getItem('username') || '',
-  
+    id : localStorage.getItem('id') || ''
 };
 
 export const authSlice = createSlice({
@@ -13,10 +13,13 @@ export const authSlice = createSlice({
     setUsername: (state, action) => {
       state.username = action.payload;
       localStorage.setItem('username', action.payload);
+    },
+    setId: (state, action) => {
+      state.id = action.payload;
+      localStorage.setItem('id', action.payload);
     }
-
   }
 });
 
-export const { setUsername } = authSlice.actions;
+export const { setUsername , setId } = authSlice.actions;
 export default authSlice.reducer;

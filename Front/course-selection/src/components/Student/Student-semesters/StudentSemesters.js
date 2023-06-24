@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
-import './Semesters.css';
-import allSemesters from "../../../mockdata";
 import { Button } from '@mui/material';
+
+import allSemesters from "../../../mockdata";
 import { useSelector } from "react-redux";
 
-const Semesters = () => {
+export default function StudentSemesters() {
   const [semesters, setSemesters] = useState(allSemesters.slice(0, 10));
   const [showAll, setShowAll] = useState(false);
   const { mode } = useSelector((state) => state.darkMode);
@@ -22,37 +22,35 @@ const Semesters = () => {
   };
 
   return (
-    <div className='semesters'>
-      <p>Check the Semesters</p>
+    <div className='semesters '>
+      <p> Check the Semesters </p>
       <hr/>
       <div className='semesters-container'>
         <ul>
           {semesters.map((semester) => (
-            <Link key={semester.id} to={`/teacher-assistant/${semester.id}`}>
+            <Link key={semester.id} to={`` + semester.id}>
               <Card className='card'>
                 <li>
-                  <p>{semester.name}</p>
+                  <p> {semester.name} </p>
                 </li>
               </Card>
             </Link>
           ))}
         </ul>
-        {semesters.length > 6 && (
-          <div className='btn-container'>
-            {!showAll ? (
-              <Button className='showMore btn' onClick={handleShowMore}>
-                More
-              </Button>
-            ) : (
+        <div className='btn-container'>
+          {semesters.length > 6 && !showAll ? (
+            <Button className='showMore btn' onClick={handleShowMore}>
+              More
+            </Button>
+          ) : (
+            showAll && (
               <Button className='btn' onClick={handleShowLess}>
                 Less
               </Button>
-            )}
-          </div>
-        )}
+            )
+          )}
+        </div>
       </div>
     </div>
   );
-};
-
-export default Semesters;
+}

@@ -3,7 +3,7 @@ import "./Login.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from 'react-redux';
 
-import {setUsername} from '../../features/authSlice'
+import {setId, setUsername} from '../../features/authSlice'
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -32,8 +32,9 @@ export const Login = () => {
         }, 2000);
       } else {
         const data = await response.json();
-        console.log(data.user.firstname);
+        console.log(data.user._id);
 
+        dispatch( setId(data.user._id) );
         dispatch( setUsername(data.user.firstname) )
       }
 
