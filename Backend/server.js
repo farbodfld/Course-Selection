@@ -62,14 +62,14 @@ const options = {
       ],
     },
     apis: ["./routes/*.js"],
-  }
+}
   
-  const specs = swaggerJsdoc(options);
-  app.use(
-    "/api-docs",
-    swaggerUi.serve,
-    swaggerUi.setup(specs)
-  )
+const specs = swaggerJsdoc(options);
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs)
+)
 
 const PORT = process.env.port || 8080 
 
