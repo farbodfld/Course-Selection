@@ -1,0 +1,45 @@
+.cards{
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+    gap: 10px;
+    padding: 0;
+    justify-items: center;
+    text-align: center;
+    margin-top: 100px;
+    
+}
+
+.cards > a {
+    text-decoration: none;
+}
+
+
+
+.studentSemesterCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+
+}
+
+.semesterIcon {
+    font-size: 60px !important;
+}
+
+@media only screen and (min-width: 769px) {
+    .cards{
+        margin-top: 60px;
+    }
+    .semesterIcon {
+        font-size: 90px !important;
+    }
+    .studentSemesterCard{
+ 
+        width: 230px;
+        height: 230px;
+    
+    }
+  }

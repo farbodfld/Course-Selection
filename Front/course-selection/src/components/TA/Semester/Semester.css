@@ -1,0 +1,45 @@
+.semester{
+    margin: 10px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header > p {
+  display: inline;
+  font-family: "Roboto";
+  font-size: 20px;
+  margin: 0;
+}
+
+ul{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px ;
+    list-style-type: none;
+    padding: 0;
+}
+ ul > a {
+    text-decoration: none;
+    color: black;
+    font-family: 'Roboto';
+    padding: 10px;
+}
+
+ul > a:hover{
+    background-color: #44444424;
+}
+
+.filter-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filterbtn-container{
+  display: flex;
+  gap: 15px;
+  
+}

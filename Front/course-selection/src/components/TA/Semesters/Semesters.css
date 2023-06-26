@@ -1,51 +1,50 @@
-.semesters{
-    margin: 10px;
+.semesters {
+  margin: 10px;
 }
 
-.semesters > p{
-    font-family: 'Roboto';
-    font-size: 20px;
+.semesters > p {
+  font-family: "Roboto";
+  font-size: 20px;
+  margin: 0%;
 }
 
 .semesters-container > ul {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px ;
-    list-style-type: none;
-    padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  list-style-type: none;
+  padding: 0;
 }
 
 .semesters-container > ul > a {
-    text-decoration: none;
-    color: black;
-    background-color: #F2F2F2;
-    font-family: 'Roboto';
-    padding: 10px;
+  text-decoration: none;
+  color: black;
+  font-family: "Roboto";
 }
 
-.semesters-container > ul > a:hover{
-    background-color: #44444424;
+
+
+.card{
+    padding: 20px;
 }
 
-.btn-container{
-    display: flex;
-    justify-content: center;
+.btn-container {
+  display: flex;
+  justify-content: center;
 }
 
-.btn{
-   
-    background-color: transparent;
-    color: #3265f1;
-    border: 1px solid #3265f1;
-    padding: .8em;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    margin-top: 2em;
-    letter-spacing: .25em;
-    font-weight: 700;
-    cursor: pointer;
-    border-radius: 3px;
-    font-family: 'PT Sans', sans-serif;
-
+.btn {
+  background-color: transparent;
+  color: #3265f1;
+  border: 1px solid #3265f1;
+  padding: 0.8em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 2em;
+  letter-spacing: 0.25em;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 3px;
+  font-family: "PT Sans", sans-serif;
 }

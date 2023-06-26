@@ -1,0 +1,23 @@
+.students{
+    margin: 10px;
+}
+
+ul > li {
+    text-decoration: none;
+    color: black;
+    background-color: #F2F2F2;
+    font-family: 'Roboto';
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul > li:hover{
+    background-color: #44444424;
+}
+
+.status-buttons{
+    display: flex;
+    gap: 5px;
+}

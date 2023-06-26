@@ -1,0 +1,22 @@
+
+.dashboard{
+    margin: 10px;
+    font-family: "Roboto";
+}
+
+.dashboard > .home {
+    font-size: 20px;
+    margin: 0%;
+    margin-left: 150px;
+  }
+
+  .recently{
+
+    padding: 20px;
+  }
+
+  .devider{
+    width: 50%;
+    border-color: black !important;
+    margin-top: 5px !important;
+  }
