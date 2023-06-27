@@ -3,7 +3,10 @@ const mongoose = require("mongoose")
 
 const EducationalManagerSchema = new mongoose.Schema(
     {
-        faculty: String,
+        faculty: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Faculty',
+        },
     },
     {
         timestamps: true,
