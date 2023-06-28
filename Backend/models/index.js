@@ -26,4 +26,24 @@ SemesterCourseDB.mongoose = mongoose
 SemesterCourseDB.url = dbConfig.uri
 SemesterCourseDB.models = require('./semesterCourseModel.js')(mongoose)
 
-module.exports = {studentDB, professorDB, EducationalManagerDB, ApprovedCourseDB, SemesterCourseDB}
+const SemesterDB ={}
+SemesterDB.mongoose = mongoose
+SemesterDB.url = dbConfig.uri
+SemesterDB.models = require('./semesterModel')(mongoose)
+
+const FacultyDB ={}
+FacultyDB.mongoose = mongoose
+FacultyDB.url = dbConfig.uri
+FacultyDB.models = require('./facultyModel.js')(mongoose)
+
+const CourseRequestDB ={}
+CourseRequestDB.mongoose = mongoose
+CourseRequestDB.url = dbConfig.uri
+CourseRequestDB.models = require('./courseRequestModel.js')(mongoose)
+
+const CourseRegistrationDB ={}
+CourseRegistrationDB.mongoose = mongoose
+CourseRegistrationDB.url = dbConfig.uri
+CourseRegistrationDB.models = require('./courseRegistrationModel.js')(mongoose)
+
+module.exports = {studentDB, professorDB, EducationalManagerDB, ApprovedCourseDB, SemesterCourseDB, SemesterDB, FacultyDB, CourseRequestDB, CourseRegistrationDB}

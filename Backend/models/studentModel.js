@@ -15,7 +15,10 @@ const StudentSchema = new mongoose.Schema(
             enum: ["Fall", "Winter", "Spring", "Summer"],
         },
         GPA: Number,
-        faculty: String,
+        faculty: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Faculty',
+        },
     },
     {
         timestamps: true,
