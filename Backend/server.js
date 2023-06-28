@@ -19,9 +19,10 @@ let professorRoutes = require("./routes/professorRoutes")
 let studentRoutes = require("./routes/studentRoutes")
 let managerRoutes = require("./routes/managerRoutes")
 let courseRoutes = require("./routes/courseRoutes")
+let termRoutes = require("./routes/termRoutes")
 
 // Users APIs routes
-app.use("/api", userRoutes, professorRoutes, studentRoutes, courseRoutes)
+app.use("/api", userRoutes, professorRoutes, studentRoutes, courseRoutes, termRoutes)
 
 // admin APIs routes
 app.use("/api/admin", professorRoutes, studentRoutes, managerRoutes)
