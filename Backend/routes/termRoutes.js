@@ -5,6 +5,11 @@ let term_controller = require("../controller/termController")
 let tokenValidation = require("../middleware/tokenValidation")
 router.use(tokenValidation)
 
+/**
+ * NOT TESTED BECUSE REQUIERMENTS NOT READY !
+ * NEED TO BE TEST !!
+*/
+
 // POST: CREATE NEW TERM BY Educational Assistant
 router.route("/term").post(term_controller.createTerm)
 
