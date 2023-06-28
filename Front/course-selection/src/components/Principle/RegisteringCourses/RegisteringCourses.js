@@ -1,38 +1,26 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import "./Semester.css";
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
-
 import { Link } from "react-router-dom";
 import allSemesters from "../../../mockdata";
+import TextField from "@mui/material/TextField";
+import "./RegisteringCourses.css";
+import AddIcon from '@mui/icons-material/Add';
 
-export default function Semester() {
-  let { id } = useParams();
-  const semester = allSemesters.find((semester) => semester.id === Number(id));
-  const [openDialog, setOpenDialog] = useState(false);
+export default function RegisteringCourses() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortByStudents, setSortByStudents] = useState(null);
   const [showAllCourses, setShowAllCourses] = useState(false);
   const coursesPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
-
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
-
+  let { semesterID } = useParams();
+  const semester = allSemesters.find(
+    (semester) => semester.id === Number(semesterID)
+  );
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
-    setCurrentPage(1); // Reset the current page when the search query changes
+    // Reset the current page when the search query changes
   };
 
   const handleSortByStudents = (criteria) => {
@@ -42,10 +30,9 @@ export default function Semester() {
   const handleShowMore = () => {
     setShowAllCourses(true);
   };
-
   const handleShowLess = () => {
     setShowAllCourses(false);
-    setCurrentPage(1); // Reset the current page when switching back to showing limited courses
+    setCurrentPage(1);
   };
 
   let filteredCourses = semester ? semester.courses : [];
@@ -71,30 +58,16 @@ export default function Semester() {
   const currentCourses = showAllCourses
     ? filteredCourses
     : filteredCourses.slice(firstIndex, lastIndex);
-
-  const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
-
   return (
     <div className="semester">
       <div className="header">
-        <p> {semester.name} </p>
-        <Button variant="text" onClick={handleOpenDialog}>
-          Check Semester Information
-        </Button>
-        <Dialog open={openDialog} onClose={handleCloseDialog}>
-          <DialogTitle>Semester Information</DialogTitle>
-          <DialogContent></DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog} color="primary">
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <p> Registering Courses  {semester.name} </p>
+        <Link to={'add'}> <Button variant="text"> <AddIcon/> Add Course </Button> </Link> 
       </div>
       <hr />
       {semester ? (
         <div>
-          <div className="filter-container">
+          <div className="filter-container RegisteringCoursesFilterContainer">
             <TextField
               id="filled-basic"
               label="Search courses"
@@ -116,20 +89,25 @@ export default function Semester() {
                 Least Students
               </Button>
             </div>
+            <div>
+                <Button variant="contained"> Download Excel </Button>
+            </div>
           </div>
 
-          <ul className='list'>
+          <ul className="registeringCoursesListContainer list">
             {currentCourses.map((course, index) => (
-              <Link
-                key={index}
-                to={`/teacher-assistant/${semester.id}/course/${course.id}`}
-              >
-                <Card className="card">
+             
+                <Card className="card registeringCoursesList">
                   <li>
-                    <p> {course.name} </p>
+                    <p className="courseName"> {course.name} </p>
+                    <p className="numberOfRegistered"> {course.students.length} Registered </p>
+                    <span className="registeringCoursesBtns">
+                     <Link  to={'StudentList/'+course.id}>  <Button variant="outlined"> Information </Button> </Link>
+                      <Button variant="outlined"> Delete </Button>
+                    </span>
                   </li>
                 </Card>
-              </Link>
+            
             ))}
           </ul>
 
@@ -146,8 +124,6 @@ export default function Semester() {
               )}
             </div>
           )}
-
-         
         </div>
       ) : (
         <h2>Semester not found.</h2>

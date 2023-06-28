@@ -13,8 +13,6 @@ export default function Course() {
     (course) => course.id === Number(courseid)
   );
 
-  console.log(semester);
-  console.log(course);
 
   const [showAll, setShowAll] = useState(false);
   const [students, setStudents] = useState(course.students.slice(0, 10));
@@ -65,7 +63,7 @@ export default function Course() {
 
       <div className="semesters-container">
       <TextField variant="filled" label='Search students' value={searchQuery} onChange={handleSearchChange} />
-        <ul>
+        <ul className='list'>
           {students.map((student) => (
             <Card className="card">
             <li key={student.id} style={{display : 'flex' , alignItems : 'center' , justifyContent : 'space-between'}}>
@@ -97,13 +95,13 @@ export default function Course() {
         <div className="btn-container">
           {course.students.length > 10 ? (
             !showAll ? (
-              <button className="showMore btn" onClick={handleShowMore}>
+              <Button variant="contained" className="showMore btn" onClick={handleShowMore}>
                 More
-              </button>
+              </Button>
             ) : (
-              <button className="btn" onClick={handleShowLess}>
+              <Button variant="contained" className="btn" onClick={handleShowLess}>
                 Less
-              </button>
+              </Button>
             )
           ) : null}
         </div>

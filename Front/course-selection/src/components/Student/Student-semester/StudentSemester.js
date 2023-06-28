@@ -32,7 +32,7 @@ export default function StudentSemester() {
   return (
     <div className="semester student-semester">
          <div className="header">
-        <p> {semester.name} </p>{" "}
+        <p> {semester.name} </p>
         <Button variant="outlined" onClick={handleOpenDialog}>
           Check Semester Information
         </Button>

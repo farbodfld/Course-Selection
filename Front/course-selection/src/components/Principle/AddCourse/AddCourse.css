@@ -1,0 +1,21 @@
+.addCourse-form{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    align-items: center
+}
+
+.DateTimePicker{
+    margin-top: 10px !important;
+}
+.addCourseBtn{
+   grid-column: span 2;
+}
+
+@media only screen and (max-width: 500px) {
+    .addCourse-form{
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

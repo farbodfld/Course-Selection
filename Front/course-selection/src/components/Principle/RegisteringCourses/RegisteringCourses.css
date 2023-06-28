@@ -1,0 +1,32 @@
+.registeringCoursesList > li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    
+}
+
+.RegisteringCoursesFilterContainer{
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.courseName{
+    width: 60px;
+}
+
+.numberOfRegistered{
+    margin-left: auto;
+}
+
+.registeringCoursesBtns{
+    margin-left: auto;
+    display: flex;
+    gap: 5px;
+}
+
+@media (max-width: 600px) {
+    .registeringCoursesListContainer {
+        grid-template-columns: 1fr; /* Change to a single column */
+    }
+}

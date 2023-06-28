@@ -21,7 +21,11 @@ import { AppBar , Button } from "@mui/material";
   };
 
   return (
-    <div>
+    <div  style={ { 
+      overflow: 'hidden',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column' }}>
       <AppBar>
         <div style={ { marginLeft : '20px'} }>
 

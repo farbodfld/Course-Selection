@@ -50,20 +50,20 @@ let { semesterID } = useParams();
             onChange={handleSearchChange}
           />
         </div>
-        <ul>
+        <ul className="list">
           {displayedCourses.map((course, index) => (
             <Card className="card">
               <li>
-                {" "}
+                
                 <p style={{ display: "flex", justifyContent: "space-between" }}>
-                  {" "}
-                  {course.name}{" "}
+                  
+                  {course.name}
                   <span>
-                    {" "}
-                    <Button variant="contained"> Cancel </Button>{" "}
-                    <Button variant="outlined"> Information </Button>{" "}
-                  </span>{" "}
-                </p>{" "}
+                    
+                    <Button variant="contained"> Cancel </Button>
+                    <Button variant="outlined"> Information </Button>
+                  </span>
+                </p>
               </li>
             </Card>
           ))}

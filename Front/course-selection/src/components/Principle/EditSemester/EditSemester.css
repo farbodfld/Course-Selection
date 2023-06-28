@@ -1,0 +1,41 @@
+.form-container
+{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
+
+.form-container > form{
+    width: 100%;
+}
+
+.inputsWithBtns{
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.inputsWithBtns > span {
+    margin-left: auto;
+}
+.inputsWithBtns > span {
+    display: flex;
+    gap: 5px;
+}
+
+
+
+@media only screen and (min-width: 769px) {
+    .form-container > form{
+        width: 75%;
+    }
+    .inputsWithBtns{
+        flex-wrap: nowrap;
+    }
+
+    
+  }
+
+
