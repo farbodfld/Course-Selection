@@ -10,6 +10,10 @@ const termSchema = new mongoose.Schema({
   SemesterCourse: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'SemesterCourse'
+  }],
+  preregistrationCourses: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CourseRequest'
   }]
 });
 

@@ -20,4 +20,7 @@ router.route("/term/:id").put(term_controller.updateTerm)
 // DELETE: TERM
 router.route("/term/:id").delete(term_controller.deleteTerm)
 
+// GET: LIST OF PREREGISTRATION COURSES OF TERM
+router.route("/term/:id/preregistration_courses").get(term_controller.getPreregistrationCourses)
+
 module.exports = router

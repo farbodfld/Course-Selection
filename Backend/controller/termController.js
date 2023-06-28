@@ -99,10 +99,22 @@ const deleteTerm = asyncHandler(async (req, res) => {
     // res.status(200).json(course)
 })
 
+const getPreregistrationCourses = asyncHandler(async (req, res) => {
+    let term = await TermObject.findById(req.params.id)
+    if (!term) {
+        res.status(404)
+        console.log("Not Found: Term not found")
+        throw new Error("Not Found")
+    }
+    
+    res.status(200).json(term.preregistrationCourses)
+})
+
 module.exports = {
     createTerm,
     getTerms,
     getTerm,
     updateTerm,
-    deleteTerm
+    deleteTerm,
+    getPreregistrationCourses
 }
