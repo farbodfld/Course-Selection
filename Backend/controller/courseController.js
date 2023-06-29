@@ -84,10 +84,34 @@ const deleteCourse = asyncHandler(async (req, res) => {
     res.status(200).json(course)
 })
 
+const getRegistrationsForCourse = async (req, res) => {
+    const courseId = req.params.id;
+    // Get student id from authentication middleware
+    const studentId = req.user.id;
+    try {
+        const term = await Term.findOne({
+            "registration_courses._id": courseId
+        });
+        if (!term) {
+            return res.status(404).json({ message: 'Course not found' });
+        }
+        const course = term.registration_courses.find(c => c.id === courseId);
+        const isRegistered = course.students.includes(studentId);
+        const registration = {
+            course_name: course.name,
+            registered: isRegistered
+        };
+        res.status(200).json(registration);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 module.exports = {
     createCourse,
     getCourses,
     getCourse,
     updateCourse,
-    deleteCourse
+    deleteCourse,
+    getRegistrationsForCourse
 }

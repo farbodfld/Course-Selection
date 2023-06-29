@@ -20,9 +20,11 @@ let studentRoutes = require("./routes/studentRoutes")
 let managerRoutes = require("./routes/managerRoutes")
 let courseRoutes = require("./routes/courseRoutes")
 let educationalManagerRoutes = require("./routes/educationalManagerRoutes");
+let professorAddedRoutes = require("./routes/professorAddedRoutes");
+let studentAddedRoutes = require("./routes/studentsAddedRoutes");
 
 // Users APIs routes
-app.use("/api", userRoutes, professorRoutes, studentRoutes, courseRoutes, educationalManagerRoutes)
+app.use("/api", userRoutes, professorRoutes, studentRoutes, courseRoutes, educationalManagerRoutes, professorAddedRoutes, studentAddedRoutes)
 
 // admin APIs routes
 app.use("/api/admin", professorRoutes, studentRoutes, managerRoutes)

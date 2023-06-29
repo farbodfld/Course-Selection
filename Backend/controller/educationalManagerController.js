@@ -21,15 +21,21 @@ const getSemesterById = asyncHandler(async (req, res) => {
     res.status(200).json(semester);
 });
 
-// CREATE A NEW SEMESTER
 const createSemester = asyncHandler(async (req, res) => {
-    const { name } = req.body;
+    const { name, termCourses } = req.body;
+
     if (!name) {
         res.status(400);
         throw new Error('Semester name is required');
     }
-    const semester = await Semester.create({ name });
-    res.status(201).json(semester);
+
+    // Create a new instance of the Semester model with the given name and termCourses
+    const semester = new Semester({ name, termCourses });
+
+    // Save the new semester to the database
+    const savedSemester = await semester.save();
+
+    res.status(201).json(savedSemester);
 });
 
 // UPDATE A SEMESTER BY ID
