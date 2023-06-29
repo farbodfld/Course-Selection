@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./TeacherAssistance.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, Outlet } from "react-router-dom";
-
+import { Divider } from '@mui/material';
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleDarkMode } from "../../features/darkModeSlice";
@@ -21,7 +21,11 @@ export const TeacherAssistance = () => {
   };
 
   return (
-    <div>
+    <div style={ { 
+          overflow: 'hidden',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column' }}>
       <AppBar>
         <IconButton
           className="icon-btn"
@@ -35,7 +39,7 @@ export const TeacherAssistance = () => {
         <Link onClick={handleMenuClick} to="/teacher-assistant">
           <ArrowRightIcon /> See Semesters
         </Link>
-        <hr />
+        <Divider/>
       </div>
       <div className="main">
         <div className="main-items">

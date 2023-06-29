@@ -26,7 +26,7 @@ export default function StudentSemesters() {
       <p> Check the Semesters </p>
       <hr/>
       <div className='semesters-container'>
-        <ul>
+        <ul className='list'>
           {semesters.map((semester) => (
             <Link key={semester.id} to={`` + semester.id}>
               <Card className='card'>

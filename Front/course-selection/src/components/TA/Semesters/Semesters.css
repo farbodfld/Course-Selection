@@ -8,7 +8,7 @@
   margin: 0%;
 }
 
-.semesters-container > ul {
+ .list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
