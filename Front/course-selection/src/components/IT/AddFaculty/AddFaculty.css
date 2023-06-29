@@ -1,0 +1,4 @@
+.addFaculty{
+    display: flex;
+    flex-direction: column;
+}

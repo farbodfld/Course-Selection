@@ -1,0 +1,12 @@
+.formHeader{
+    display: flex;
+    justify-content: center;
+}
+
+.textFiled > div{
+padding-right: 0 !important;
+}
+
+.datepickerAdd{
+    margin-top: 10px !important;
+}

@@ -8,10 +8,6 @@ import Card from "@mui/material/Card";
 import "./AddCourse.css";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
-import { LocalizationProvider } from "@mui/x-date-pickers-pro";
-
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-
 import allSemesters from "../../../mockdata";
 
 export default function AddCourse() {
@@ -88,18 +84,18 @@ export default function AddCourse() {
             margin="normal"
             variant="outlined"
           />
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-          
-              <DateTimePicker className="DateTimePicker" label="date and time of class" />
-           
+          <DateTimePicker
+            className="DateTimePicker"
+            label="date and time of class"
+          />
 
-           
-              <DateTimePicker className="DateTimePicker"  label="date and time of exam" />
-            
-          </LocalizationProvider>
+          <DateTimePicker
+            className="DateTimePicker"
+            label="date and time of exam"
+          />
 
           <Button
-          className="addCourseBtn"
+            className="addCourseBtn"
             style={{ width: "100%", marginTop: "70px" }}
             variant="contained"
             type="submit"

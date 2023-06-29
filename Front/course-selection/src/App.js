@@ -4,14 +4,15 @@ import { Login } from "./components/Login/Login";
 import { TeacherAssistance } from "./components/TA/TeacherAssistance";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-
 import "./App.css";
 
 import Semesters from "./components/TA/Semesters/Semesters";
 import Semester from "./components/TA/Semester/Semester";
 import Course from "./components/TA/Course/Course";
 import { useSelector } from "react-redux";
+import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import CssBaseline from "@mui/material/CssBaseline";
 import Student from "./components/Student/Student";
 import StudentDashboard from "./components/Student/Student-dashboard/StudentDashboard";
@@ -23,15 +24,23 @@ import ProCourseReg from "./components/Student/proCourseReg/ProCourseReg";
 import RegCourses from "./components/Student/RegCourses/RegCourses";
 import PrincipleSemesters from "./components/Principle/Principle-Semesters/PrincipleSemesters";
 import Principle from "./components/Principle/Principle";
-import AddSemester from './components/Principle/AddSemester/AddSemester';
-import EditSemester from './components/Principle/EditSemester/EditSemester'
-import PrincipleSemester from './components/Principle/PrincipleSemester/PrincipleSemester'
-import PreRegisteringCourses from './components/Principle/PreRegisteringCourses/PreRegisteringCourses'
-import RegisteringCourses from './components/Principle/RegisteringCourses/RegisteringCourses'
-import StudentList from './components/Principle/RegisteringCourses/StudentList/StudentList'
-import AddCourse from './components/Principle/AddCourse/AddCourse'
+import AddSemester from "./components/Principle/AddSemester/AddSemester";
+import EditSemester from "./components/Principle/EditSemester/EditSemester";
+import PrincipleSemester from "./components/Principle/PrincipleSemester/PrincipleSemester";
+import PreRegisteringCourses from "./components/Principle/PreRegisteringCourses/PreRegisteringCourses";
+import RegisteringCourses from "./components/Principle/RegisteringCourses/RegisteringCourses";
+import StudentList from "./components/Principle/RegisteringCourses/StudentList/StudentList";
+import AddCourse from "./components/Principle/AddCourse/AddCourse";
 import Students from "./components/Principle/Students/Students";
-import Professors from './components/Principle/Professors/Professors'
+import Professors from "./components/Principle/Professors/Professors";
+import IT from "./components/IT/IT";
+import ITStudentList from './components/IT/ITStudentList/ITStudentList'
+import AddStudent from './components/IT/AddStudent/AddStudent'
+import ITProfessorsList from './components/IT/ITProfessorsList/ITProfessorsList'
+import AddProfessor from './components/IT/AddProfessor/AddProfessor'
+import ITPresidentList from './components/IT/ITPresidentList/ITPresidentList'
+import AddPresident from './components/IT/AddPresident/AddPresident'
+import AddFaculty from './components/IT/AddFaculty/AddFaculty'
 function App() {
   const { mode } = useSelector((state) => state.darkMode);
 
@@ -42,8 +51,8 @@ function App() {
   });
   document.body.classList = mode ? "dark" : "light";
   return (
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
     <ThemeProvider theme={darkTheme}>
-     
       <CssBaseline />
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
@@ -76,21 +85,56 @@ function App() {
 
         <Route path="/principle" element={<Principle />}>
           <Route index element={<PrincipleSemesters />} />
-          <Route path=":id/edit" element={<EditSemester/>} />
-          <Route path="addSemester" element={<AddSemester/>} />
-          <Route path=":semesterID/course" element={<PrincipleSemester/>} /> 
-          <Route path=":semesterID/course/PreRegisteringCourses" element={<PreRegisteringCourses/>} /> 
-          <Route path=":semesterID/course/PreRegisteringCourses/add" element={<AddCourse/>} />
-          <Route path=":semesterID/course/PreRegisteringCourses/StudentList/:courseID" element={<StudentList/>} />
-          <Route path=":semesterID/course/RegisteringCourses" element={<RegisteringCourses/>} /> 
-          <Route path=":semesterID/course/RegisteringCourses/add" element={<AddCourse/>} />
-          <Route path=":semesterID/course/RegisteringCourses/StudentList/:courseID" element={<StudentList/>} /> 
-           <Route path="students" element={<Students/>} />
-          <Route path="Profs" element={<Professors/>} />  
+          <Route path=":id/edit" element={<EditSemester />} />
+          <Route path="addSemester" element={<AddSemester />} />
+          <Route path=":semesterID/course" element={<PrincipleSemester />} />
+          <Route
+            path=":semesterID/course/PreRegisteringCourses"
+            element={<PreRegisteringCourses />}
+          />
+          <Route
+            path=":semesterID/course/PreRegisteringCourses/add"
+            element={<AddCourse />}
+          />
+          <Route
+            path=":semesterID/course/PreRegisteringCourses/StudentList/:courseID"
+            element={<StudentList />}
+          />
+          <Route
+            path=":semesterID/course/RegisteringCourses"
+            element={<RegisteringCourses />}
+          />
+          <Route
+            path=":semesterID/course/RegisteringCourses/add"
+            element={<AddCourse />}
+          />
+          <Route
+            path=":semesterID/course/RegisteringCourses/StudentList/:courseID"
+            element={<StudentList />}
+          />
+          <Route path="students" element={<Students />} />
+          <Route path="Profs" element={<Professors />} />
+        </Route>
+
+        <Route path="IT" element={ <IT/> } > 
+          <Route index element={ <ITStudentList/> } />
+          <Route path="ITAddStudent" element={<AddStudent/>} />
+         
+
+          
+          <Route path="ITProfessorsList" element={ <ITProfessorsList/> } />
+          <Route path="ITProfessorsList/ITAddProfessor" element={ <AddProfessor/> }/> 
+        
+
+          <Route path="ITPresidentsList" element={ <ITPresidentList/> } />
+          <Route path="ITPresidentsList/addFaculty" element={ <AddFaculty/> } />
+          <Route path="ITPresidentsList/ITAddPresident" element={ <AddPresident/> }/> 
+        
+          
         </Route>
       </Routes>
-    
     </ThemeProvider>
+    </LocalizationProvider>
   );
 }
 

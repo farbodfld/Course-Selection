@@ -104,7 +104,7 @@ export default function StudentList() {
             </div>
       
     </div>
-      <ul>
+      <ul className="list">
         {students.map((student) => (
           <Card className="card">
           <li key={student.id} style={{display : 'flex' , alignItems : 'center' , justifyContent : 'space-between'}}>
