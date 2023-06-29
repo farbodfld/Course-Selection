@@ -1,6 +1,5 @@
-const approvedCourseSchema = require('./approvedCourseModel')
-const mongoose = require("mongoose")
-
+const approvedCourseSchema = require('./approvedCourseModel');
+const mongoose = require('mongoose');
 
 const semesterCourseSchema = new mongoose.Schema(
     {
@@ -10,10 +9,11 @@ const semesterCourseSchema = new mongoose.Schema(
         lecturer: String,
         capacity: Number,
         academicSemester: String,
+        preregisteredStudents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     },
     {
         timestamps: true,
     }
 );
 
-module.exports = approvedCourseSchema.discriminator("SemesterCourse", semesterCourseSchema)
+module.exports = approvedCourseSchema.discriminator('SemesterCourse', semesterCourseSchema);

@@ -19,7 +19,7 @@ EducationalManagerDB.models = require('./educationalManagerModel.js')(mongoose)
 const ApprovedCourseDB ={}
 ApprovedCourseDB.mongoose = mongoose
 ApprovedCourseDB.url = dbConfig.uri
-ApprovedCourseDB.models = require('./approvedCourseModel.js')(mongoose)
+ApprovedCourseDB.models = require('./approvedCourseModel')(mongoose)
 
 const SemesterCourseDB ={}
 SemesterCourseDB.mongoose = mongoose
@@ -29,7 +29,7 @@ SemesterCourseDB.models = require('./semesterCourseModel.js')(mongoose)
 const SemesterDB ={}
 SemesterDB.mongoose = mongoose
 SemesterDB.url = dbConfig.uri
-SemesterDB.models = require('./semesterModel')(mongoose)
+SemesterDB.models = require('./semesterModel.js')(mongoose)
 
 const FacultyDB ={}
 FacultyDB.mongoose = mongoose

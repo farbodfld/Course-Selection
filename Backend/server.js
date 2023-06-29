@@ -19,9 +19,10 @@ let professorRoutes = require("./routes/professorRoutes")
 let studentRoutes = require("./routes/studentRoutes")
 let managerRoutes = require("./routes/managerRoutes")
 let courseRoutes = require("./routes/courseRoutes")
+let educationalManagerRoutes = require("./routes/educationalManagerRoutes");
 
 // Users APIs routes
-app.use("/api", userRoutes, professorRoutes, studentRoutes, courseRoutes)
+app.use("/api", userRoutes, professorRoutes, studentRoutes, courseRoutes, educationalManagerRoutes)
 
 // admin APIs routes
 app.use("/api/admin", professorRoutes, studentRoutes, managerRoutes)
@@ -71,7 +72,7 @@ app.use(
   swaggerUi.setup(specs)
 )
 
-const PORT = process.env.port || 8080 
+const PORT = process.env.port || 8080
 
 app.listen(PORT,()=>{
     console.log(`listening on port ${PORT}`)
