@@ -20,6 +20,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoos": "^0.0.1-security",
     "mongoose": "^7.1.0",
+    "redis": "^4.6.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.3"
   },

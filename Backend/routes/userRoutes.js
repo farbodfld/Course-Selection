@@ -62,6 +62,10 @@ const router = require("express").Router()
 
 const userObject = require("../controller/userController")
 
+// // Middleware to check access token cache
+// let checkAccessTokenCache = require("../middleware/checkAccessTokenCache")
+// router.use(checkAccessTokenCache)
+
 router.route("/createAdmin").post(userObject.creatAdmin)
 router.route("/login").post(userObject.login)
 

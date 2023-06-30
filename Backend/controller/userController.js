@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const User = require("../models/userModel")
+const { use } = require("../routes/courseRoutes")
 
 const creatAdmin = asyncHandler(async (req, res) => {
     const {
@@ -17,13 +18,13 @@ const creatAdmin = asyncHandler(async (req, res) => {
     console.log(req.body)
 
     if (firstname && surname && userNumber && password && email && mobilePhone && role){
-        // check if admin exist or not!
-        let userExist = await User.findOne({role})
-        if (userExist) {
-            res.status(400)
-            console.log("User already exist: ", userExist)
-            throw new Error("Bad Request")
-        }
+        // // check if admin exist or not!
+        // let userExist = await User.findOne({role: "admin"})
+        // if (userExist) {
+        //     res.status(400)
+        //     console.log("User already exist: ", userExist)
+        //     throw new Error("Bad Request")
+        // }
 
         // create hash password
         let hashedPassword = await bcrypt.hash(password, 10)
@@ -72,6 +73,8 @@ const login = asyncHandler(async (req, res) => {
     console.log(user)
 
     //compare password with hashedpassword
+    console.log(password)
+    console.log(user.password)
     if (user && (await bcrypt.compare(password, user.password))) {
         const accessToken = jwt.sign(
             {
