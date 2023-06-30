@@ -1,16 +1,31 @@
-import React, { useState } from "react";
+import React, { useState , useEffect  } from "react";
 import "./Login.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import {Authentication , NavigateToRole} from '../../Authentication/Authentication'
 
-import {setId, setUsername} from '../../features/authSlice'
+import {setId, setUsername , setAccessToken , setRole} from '../../features/authSlice'
 
 export const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showUnauthorized, setShowUnauthorized] = useState(false);
   const { mode } = useSelector( (state) => state.darkMode )
  const dispatch = useDispatch()
+
+ useEffect(() => {
+
+
+  if (Authentication()) {
+    const data = Authentication()
+    NavigateToRole(data.role)
+  }
+  
+
+ 
+}, []); // Empty dependency array to run the effect only once
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,17 +41,24 @@ export const Login = () => {
 
       const status = response.status;
       if (status !== 200) {
-        setShowUnauthorized( pre => !pre )
+        
         setTimeout(() => {
           setShowUnauthorized(prevState => !prevState);
         }, 2000);
       } else {
         const data = await response.json();
-        console.log(data.user._id);
+        console.log(data);
 
         dispatch( setId(data.user._id) );
         dispatch( setUsername(data.user.firstname) )
+        dispatch( setAccessToken(data.accessToken) )
+        dispatch( setRole(data.user.role) )
+        NavigateToRole(data.user.role  )
       }
+
+     
+
+
 
       // Process the response data
     } catch (error) {

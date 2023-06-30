@@ -29,16 +29,7 @@ app.use("/api", userRoutes, professorRoutes, studentRoutes, courseRoutes, educat
 // admin APIs routes
 app.use("/api/admin", professorRoutes, studentRoutes, managerRoutes)
 
-app.post('/login', (req, res) => {
-  // Extract the username and password from the request body
-  const { username, password } = req.body;
 
-  // Perform authentication logic here
-  // ...
-
-  // Send a response back to the client
-  res.json({ success: true, message: 'Authentication successful' });
-});
 
 const options = {
     definition: {

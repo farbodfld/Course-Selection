@@ -55,6 +55,7 @@ const createStudent = asyncHandler(async (req, res) => {
 const getStudents = asyncHandler(async (req, res) => {
   if (req.user.role === "admin" || req.user.role === "manager") {
       let students = await StudentObject.find()
+      console.log(students);
       res.status(200).json(students)
   } else {
       res.status(401)
