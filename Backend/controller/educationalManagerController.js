@@ -139,8 +139,8 @@ const removeCourseFromPreregistration = asyncHandler(async (req, res) => {
 
     try {
         const courseToDelete = req.body.course; // Get the course to delete from the request body
-        const updatedCourses = term.courses.filter((course) => course !== courseToDelete); // Filter out the specified course
-        term.courses = updatedCourses; // Update the preRegCoursesNames field
+        const updatedCourses = term.preregistration_courses.filter((course) => course !== courseToDelete); // Filter out the specified course
+        term.preregistration_courses = updatedCourses; // Update the preRegCoursesNames field
         await term.save(); // Save the updated term to the database
         res.status(200).json(term); // Return the updated term in the response
     } catch (err) {
@@ -148,57 +148,72 @@ const removeCourseFromPreregistration = asyncHandler(async (req, res) => {
     }
 });
 
+
+
 // ADD A COURSE TO REGISTRATION COURSE LIST FOR A SEMESTER
 const addCourseToRegistration = asyncHandler(async (req, res) => {
-    const semester = await Semester.findById(req.params.id).populate('preregistration_courses');
-    const { courseId } = req.body;
-    if (!courseId) {
+    if (req.user.role === "manager") {
+        const term = await Semester.findById(req.params.id);
+        if (!term) {
+            res.status(404);
+            throw new Error("Term not found");
+        }
+
+        const update = {
+            $push: { registration_courses: req.body.registration_courses }
+        };
+
+        const updatedTerm = await Semester.findByIdAndUpdate(
+            req.params.id,
+            update,
+            { new: true }
+        );
+
+        res.status(200).json(updatedTerm);
+    } else {
         res.status(400);
-        throw new Error('Course ID is required');
+        throw new Error("you are not permitioned");
     }
-    const course = semester.preregistration_courses.find((c) => c._id.equals(courseId));
-    if (!course) {
-        res.status(404);
-        throw new Error('Course not found in preregistration list');
-    }
-    if (semester.registration_courses.some((c) => c._id.equals(courseId))) {
-        res.status(400);
-        throw new Error('Course is already in registration list');
-    }
-    const courseRegistration = await CourseRegistration.create({ course: courseId, semester: semester._id });
-    semester.registration_courses.push(courseRegistration._id);
-    await semester.save();
-    res.status(200).json(semester);
 });
 
 // VIEW REGISTRATION COURSE LIST FOR A SEMESTER
 const getRegistrationCourseList = asyncHandler(async (req, res) => {
-    const semester = await Semester.findById(req.params.id).populate('registration_courses');
-    if (!semester) {
+    const term = await Semester.findById(req.params.id);
+    if (!term) {
         res.status(404);
-        throw new Error('Semester not found');
+        throw new Error("Term not found");
     }
-    const courseRegistrations = await CourseRegistration.find({ semester: semester._id }).populate('course');
-    res.status(200).json(courseRegistrations);
+
+    try {
+        const RegCoursesNames = term.registration_courses; // Get the preRegCoursesNames array
+        res.status(200).json({RegCoursesNames}); // Return the preRegCoursesNames array in the response
+    } catch (err) {
+        res.status(500).json({error: err.message}); // Handle any errors
+    }
 });
 
 // REMOVE A COURSE FROM REGISTRATION COURSE LIST FOR A SEMESTER
 const removeCourseFromRegistration = asyncHandler(async (req, res) => {
-    const semester = await Semester.findById(req.params.id).populate('registration_courses');
-    const { courseId } = req.body;
-    if (!courseId) {
+    if (req.user.role !== "manager") {
         res.status(400);
-        throw new Error('Course ID is required');
+        throw new Error("you are not manager");
     }
-    const courseRegistration = semester.registration_courses.find((c) => c.course.equals(courseId));
-    if (!courseRegistration) {
+
+    const term = await Semester.findById(req.params.id);
+    if (!term) {
         res.status(404);
-        throw new Error('Course not found in registration list');
+        throw new Error("Term not found");
     }
-    await CourseRegistration.findByIdAndDelete(courseRegistration._id);
-    semester.registration_courses = semester.registration_courses.filter((c) => !c.course.equals(courseId));
-    await semester.save();
-    res.status(200).json(semester);
+
+    try {
+        const courseToDelete = req.body.course; // Get the course to delete from the request body
+        const updatedCourses = term.registration_courses.filter((course) => course !== courseToDelete); // Filter out the specified course
+        term.registration_courses = updatedCourses; // Update the preRegCoursesNames field
+        await term.save(); // Save the updated term to the database
+        res.status(200).json(term); // Return the updated term in the response
+    } catch (err) {
+        res.status(500).json({error: err.message}); // Handle any errors
+    }
 });
 
 // ADD A COURSE REQUEST TO A SEMESTER

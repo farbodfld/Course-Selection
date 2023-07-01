@@ -30,6 +30,8 @@ router.get('/term/:id/preregistration_courses', educationalManagerController.get
 // DELETE: REMOVE A COURSE FROM PREREGISTRATION COURSE LIST FOR A SEMESTER
 router.delete('/term/:id/preregistration', educationalManagerController.removeCourseFromPreregistration);
 
+
+
 // POST: ADD A COURSE TO REGISTRATION COURSE LIST FOR A SEMESTER
 router.post('/term/:id/registration', educationalManagerController.addCourseToRegistration);
 
