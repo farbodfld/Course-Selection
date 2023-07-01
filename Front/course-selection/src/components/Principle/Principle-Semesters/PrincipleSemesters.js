@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 
 import allSemesters from "../../../mockdata";
 import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
+import {Authentication , NavigateToRole} from '../../../Authentication/Authentication'
+
 
 export default function PrincipleSemesters() {
   const [semesters, setSemesters] = useState(allSemesters.slice(0, 10));
   const [showAll, setShowAll] = useState(false);
   const { mode } = useSelector((state) => state.darkMode);
+
 
   const handleShowMore = () => {
     setShowAll(true);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./Semester.css";
 import Button from "@mui/material/Button";
@@ -15,12 +15,37 @@ import allSemesters from "../../../mockdata";
 export default function Semester() {
   let { id } = useParams();
   const semester = allSemesters.find((semester) => semester.id === Number(id));
+  //const [semester, setsemester] = useState([])
   const [openDialog, setOpenDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortByStudents, setSortByStudents] = useState(null);
   const [showAllCourses, setShowAllCourses] = useState(false);
   const coursesPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
+
+  // useEffect(() => {
+  //   const fetchTermById = async () => {
+  //     try {
+  //       const accessToken = localStorage.getItem("accessToken");
+   
+
+  //       const response = await fetch(`http://localhost:9090/api/term/${id}`, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       });
+
+  //       const data = await response.json();
+  //       console.log(data);
+  //      // setsemester(data)
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchTermById();
+  // }, []);
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
@@ -72,7 +97,7 @@ export default function Semester() {
     ? filteredCourses
     : filteredCourses.slice(firstIndex, lastIndex);
 
-  const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
+
 
   return (
     <div className="semester">
