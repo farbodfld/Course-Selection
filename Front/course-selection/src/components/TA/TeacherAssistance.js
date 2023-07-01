@@ -16,7 +16,7 @@ export const TeacherAssistance = () => {
   useEffect(() => {
 
 
-    console.log(  Authentication('professor') );
+    
     
      
     
