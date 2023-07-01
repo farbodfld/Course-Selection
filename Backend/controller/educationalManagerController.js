@@ -22,6 +22,11 @@ const getSemesterById = asyncHandler(async (req, res) => {
 });
 
 const createSemester = asyncHandler(async (req, res) => {
+    if (req.user.role !== "admin") {
+        res.status(400);
+        throw new Error("you are not admin");
+    }
+
     let input = { name, courses, users, preregistration_courses, registration_courses } = req.body;
     console.log('req is: ', input)
 
@@ -41,26 +46,40 @@ const createSemester = asyncHandler(async (req, res) => {
 
 // UPDATE A SEMESTER BY ID
 const updateSemester = asyncHandler(async (req, res) => {
-    const { name } = req.body;
-    const semester = await Semester.findById(req.params.id);
-    if (!semester) {
-        res.status(404);
-        throw new Error('Semester not found');
+    if (req.user.role === "manager" || req.user.role === "admin") {
+        const term = await Semester.findById(req.params.id);
+        if (!term) {
+            res.status(404);
+            throw new Error("Term not found");
+        }
+        const updatedSemester = await Semester.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {new: true}
+        );
+
+        res.status(200).json(updatedSemester);
+    } else {
+        res.status(400);
+        throw new Error("you are not permitioned");
     }
-    semester.name = name || semester.name;
-    await semester.save();
-    res.status(200).json(semester);
 });
 
 // DELETE A SEMESTER BY ID
 const deleteSemester = asyncHandler(async (req, res) => {
-    const semester = await Semester.findById(req.params.id);
-    if (!semester) {
-        res.status(404);
-        throw new Error('Semester not found');
+    if (req.user.role !== "manager" || req.user.role !== "admin") {
+        res.status(400);
+        throw new Error("you are not manager or admin");
     }
-    await semester.remove();
-    res.status(200).json({ message: 'Semester removed' });
+
+    const term = await Semester.findById(req.params.id);
+    if (!term) {
+        res.status(404);
+        throw new Error("Term not found");
+    }
+
+    await Semester.deleteOne(term);
+    res.status(200).json(term);
 });
 
 // ADD A COURSE TO PREREGISTRATION COURSE LIST FOR A SEMESTER
