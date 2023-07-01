@@ -1,5 +1,7 @@
 const router = require("express").Router()
 const educationalManagerController = require('../controller/educationalManagerController');
+const { getPreregReqs, createPreregReq, addCourseToPreregReq } = require("../controller/courseRequestController");
+
 const tokenValidation = require("../middleware/tokenValidation")
 
 router.use(tokenValidation);
@@ -40,6 +42,8 @@ router.get('/term/:id/registration_courses', educationalManagerController.getReg
 
 // DELETE: REMOVE A COURSE FROM REGISTRATION COURSE LIST FOR A SEMESTER
 router.delete('/term/:id/registration', educationalManagerController.removeCourseFromRegistration);
+
+
 
 // GET: VIEW PREREGISTRATION LIST FOR COURSES IN A SEMESTER
 router.get('/term/:id/preregistrations', educationalManagerController.getPreregistrationCourseList);

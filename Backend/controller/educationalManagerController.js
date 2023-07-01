@@ -27,7 +27,7 @@ const createSemester = asyncHandler(async (req, res) => {
         throw new Error("you are not admin");
     }
 
-    let input = { name, courses, users, preregistration_courses, registration_courses } = req.body;
+    let input = { name, courses, users, preregistration_courses, registration_courses, preregistrations } = req.body;
     console.log('req is: ', input)
 
     if (!name) {
@@ -216,6 +216,11 @@ const removeCourseFromRegistration = asyncHandler(async (req, res) => {
     }
 });
 
+
+
+
+
+/********************************************************************************************************************************/
 // ADD A COURSE REQUEST TO A SEMESTER
 const addCourseRequest = asyncHandler(async (req, res) => {
     const semester = await Semester.findById(req.params.id);
@@ -338,6 +343,7 @@ module.exports = {
     addCourseToRegistration,
     getRegistrationCourseList,
     removeCourseFromRegistration,
+
     addCourseRequest,
     getCourseRequests,
     approveCourseRequest,

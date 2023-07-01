@@ -9,6 +9,7 @@ const SemesterSchema = new mongoose.Schema({
     users: [String],
     preregistration_courses: [String],
     registration_courses: [String],
+    preregistrations: [Number]
 }, {
     timestamps: true,
 });
