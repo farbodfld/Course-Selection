@@ -55,7 +55,7 @@ const updateSemester = asyncHandler(async (req, res) => {
         const updatedSemester = await Semester.findByIdAndUpdate(
             req.params.id,
             req.body,
-            {new: true}
+            { new: true }
         );
 
         res.status(200).json(updatedSemester);
@@ -82,57 +82,70 @@ const deleteSemester = asyncHandler(async (req, res) => {
     res.status(200).json(term);
 });
 
+
+
 // ADD A COURSE TO PREREGISTRATION COURSE LIST FOR A SEMESTER
 const addCourseToPreregistration = asyncHandler(async (req, res) => {
-    const semester = await Semester.findById(req.params.id).populate('courses');
-    const { courseId } = req.body;
-    if (!courseId) {
+    if (req.user.role === "manager") {
+        const term = await Semester.findById(req.params.id);
+        if (!term) {
+            res.status(404);
+            throw new Error("Term not found");
+        }
+        const update = {
+            $push: { preregistration_courses: req.body.preregistration_courses }
+        };
+        const updatedTerm = await Semester.findByIdAndUpdate(
+            req.params.id,
+            update,
+            { new: true }
+        );
+
+        res.status(200).json(updatedTerm);
+    } else {
         res.status(400);
-        throw new Error('Course ID is required');
+        throw new Error("you are not permitioned");
     }
-    const course = semester.courses.find((c) => c._id.equals(courseId));
-    if (!course) {
-        res.status(404);
-        throw new Error('Course not found in semester');
-    }
-    if (course.status !== 'approved') {
-        res.status(400);
-        throw new Error('Course is not approved');
-    }
-    if (semester.preregistration_courses.some((c) => c._id.equals(courseId))) {
-        res.status(400);
-        throw new Error('Course is already in preregistration list');
-    }
-    semester.preregistration_courses.push(courseId);
-    await semester.save();
-    res.status(200).json(semester);
 });
 
 // VIEW PREREGISTRATION COURSE LIST FOR A SEMESTER
 const getPreregistrationCourseList = asyncHandler(async (req, res) => {
-    const semester = await Semester.findById(req.params.id).populate('preregistration_courses');
-    if (!semester) {
+    const term = await Semester.findById(req.params.id);
+    if (!term) {
         res.status(404);
-        throw new Error('Semester not found');
+        throw new Error("Term not found");
     }
-    res.status(200).json(semester.preregistration_courses);
+
+    try {
+        const preRegCoursesNames = term.preregistration_courses; // Get the preRegCoursesNames array
+        res.status(200).json({preRegCoursesNames}); // Return the preRegCoursesNames array in the response
+    } catch (err) {
+        res.status(500).json({error: err.message}); // Handle any errors
+    }
 });
 
 // REMOVE A COURSE FROM PREREGISTRATION COURSE LIST FOR A SEMESTER
 const removeCourseFromPreregistration = asyncHandler(async (req, res) => {
-    const semester = await Semester.findById(req.params.id).populate('courses');
-    const { courseId } = req.body;
-    if (!courseId) {
+    if (req.user.role !== "manager") {
         res.status(400);
-        throw new Error('Course ID is required');
+        throw new Error("you are not manager");
     }
-    if (!semester.preregistration_courses.some((c) => c._id.equals(courseId))) {
+
+    const term = await Semester.findById(req.params.id);
+    if (!term) {
         res.status(404);
-        throw new Error('Course not found in preregistration list');
+        throw new Error("Term not found");
     }
-    semester.preregistration_courses = semester.preregistration_courses.filter((c) => !c._id.equals(courseId));
-    await semester.save();
-    res.status(200).json(semester);
+
+    try {
+        const courseToDelete = req.body.course; // Get the course to delete from the request body
+        const updatedCourses = term.courses.filter((course) => course !== courseToDelete); // Filter out the specified course
+        term.courses = updatedCourses; // Update the preRegCoursesNames field
+        await term.save(); // Save the updated term to the database
+        res.status(200).json(term); // Return the updated term in the response
+    } catch (err) {
+        res.status(500).json({error: err.message}); // Handle any errors
+    }
 });
 
 // ADD A COURSE TO REGISTRATION COURSE LIST FOR A SEMESTER

@@ -19,6 +19,8 @@ router.put('/term/:id', educationalManagerController.updateSemester);
 // DELETE: DELETE A SEMESTER BY ID
 router.delete('/term/:id', educationalManagerController.deleteSemester);
 
+
+
 // POST: ADD A COURSE TO PREREGISTRATION COURSE LIST FOR A SEMESTER
 router.post('/term/:id/preregistration', educationalManagerController.addCourseToPreregistration);
 
