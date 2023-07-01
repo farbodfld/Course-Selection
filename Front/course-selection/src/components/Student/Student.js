@@ -9,15 +9,29 @@ import { toggleDarkMode } from "../../features/darkModeSlice";
 import { IconButton } from "@mui/material";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
 import { AppBar , Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
  const Student = () => {
   const dispatch = useDispatch();
   const { mode } = useSelector((state) => state.darkMode);
+  const navigate = useNavigate();
 
 
   const [showSmallScreenSideNav, setShowSmallScreenSideNav] = useState(false);
   const handleMenuClick = () => {
     setShowSmallScreenSideNav((pre) => !pre);
+  };
+
+  const handleLogout = () => {
+    // Remove items from localStorage
+    localStorage.removeItem("id");
+    localStorage.removeItem("username");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("role");
+  
+    // Perform any additional logout logic or redirect to the login page
+    // For example, you can redirect to the login page using React Router
+    navigate("/login");
   };
 
   return (
@@ -41,7 +55,10 @@ import { AppBar , Button } from "@mui/material";
         <div style={{display:'flex' , alignItems : 'center'}}>
 
         <span className="fullname "> NAME </span>
+        <div style={{display : 'flex' , alignItems : 'center'}}>
+        <Button onClick={handleLogout} style={{color : 'white'}} variant="text" > LogOut </Button>
         <MenuIcon className="menu" onClick={handleMenuClick} />
+        </div>
         </div>
       </AppBar>
       <div className={showSmallScreenSideNav ? "smallScreenSideNav" : "none"}>

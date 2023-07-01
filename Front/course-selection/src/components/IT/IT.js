@@ -7,11 +7,26 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleDarkMode } from "../../features/darkModeSlice";
 import { IconButton } from "@mui/material";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
-import { AppBar } from "@mui/material";
+import { AppBar , Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import {Authentication , NavigateToRole} from '../../Authentication/Authentication'
 
 export default function IT() {
-  const location = useLocation();
 
+  useEffect(() => {
+
+
+    console.log(  Authentication('admin') );
+    
+     
+    
+    
+  
+   
+  }, []);
+
+  const location = useLocation();
+  const navigate = useNavigate();
   const showAllLink = location.pathname === "/IT";
 
   const dispatch = useDispatch();
@@ -21,6 +36,18 @@ export default function IT() {
   const [showSmallScreenSideNav, setShowSmallScreenSideNav] = useState(false);
   const handleMenuClick = () => {
     setShowSmallScreenSideNav((pre) => !pre);
+  };
+
+  const handleLogout = () => {
+    // Remove items from localStorage
+    localStorage.removeItem("id");
+    localStorage.removeItem("username");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("role");
+  
+    // Perform any additional logout logic or redirect to the login page
+    // For example, you can redirect to the login page using React Router
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -53,7 +80,10 @@ export default function IT() {
         >
           <NightsStayIcon className={mode && "darkMode"} />
         </IconButton>
+        <div style={{display : 'flex' , alignItems : 'center'}}>
+        <Button onClick={handleLogout} style={{color : 'white'}} variant="text" > LogOut </Button>
         <MenuIcon className="menu" onClick={handleMenuClick} />
+        </div>
       </AppBar>
       <div className={showSmallScreenSideNav ? "smallScreenSideNav" : "none"}>
         {navItems.map((item, index) => (

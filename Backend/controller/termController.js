@@ -2,7 +2,8 @@ const Term = require('../models/semesterModel');
 
 const getAllTerms = async (req, res) => {
     try {
-        const terms = await Term.find({});
+        const terms = await Term.find();
+        console.log(terms);
         res.status(200).json(terms);
     } catch (err) {
         res.status(500).json({ message: err.message });

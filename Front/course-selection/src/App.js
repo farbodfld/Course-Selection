@@ -41,6 +41,7 @@ import AddProfessor from './components/IT/AddProfessor/AddProfessor'
 import ITPresidentList from './components/IT/ITPresidentList/ITPresidentList'
 import AddPresident from './components/IT/AddPresident/AddPresident'
 import AddFaculty from './components/IT/AddFaculty/AddFaculty'
+import Unauthorized from './components/Unauthorized/Unauthorized'
 function App() {
   const { mode } = useSelector((state) => state.darkMode);
 
@@ -132,6 +133,8 @@ function App() {
         
           
         </Route>
+
+        <Route path="Unauthorized" element={ <Unauthorized/> } />
       </Routes>
     </ThemeProvider>
     </LocalizationProvider>

@@ -4,8 +4,9 @@ const mongoose = require("mongoose")
 const EducationalManagerSchema = new mongoose.Schema(
     {
         faculty: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Faculty',
+            type : String
+            // type: mongoose.Schema.Types.ObjectId,
+            // ref: 'Faculty',
         },
     },
     {
