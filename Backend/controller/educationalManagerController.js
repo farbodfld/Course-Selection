@@ -22,7 +22,8 @@ const getSemesterById = asyncHandler(async (req, res) => {
 });
 
 const createSemester = asyncHandler(async (req, res) => {
-    const { name, termCourses } = req.body;
+    let input = { name, courses, users, preregistration_courses, registration_courses } = req.body;
+    console.log('req is: ', input)
 
     if (!name) {
         res.status(400);
@@ -30,7 +31,7 @@ const createSemester = asyncHandler(async (req, res) => {
     }
 
     // Create a new instance of the Semester model with the given name and termCourses
-    const semester = new Semester({ name, termCourses });
+    const semester = new Semester(input);
 
     // Save the new semester to the database
     const savedSemester = await semester.save();
