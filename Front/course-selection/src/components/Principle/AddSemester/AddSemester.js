@@ -27,13 +27,40 @@ export default function AddSemester() {
     setEndDate(date);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Form submitted");
     console.log("Name:", name);
     console.log("Start Date:", startDate);
     console.log("End Date:", endDate);
-    // Additional logic for form submission
+
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const role = localStorage.getItem("role");
+      const response = await fetch("http://localhost:9090/api/term", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          role : `${role}`
+        },
+        body: JSON.stringify({
+          name: name,
+          startDate: startDate,
+          endDate: endDate,
+        }),
+      });
+      
+      if (response.ok) {
+        console.log("Semester added successfully");
+        // Redirect to the desired page
+      
+      } else {
+        console.error("Failed to add semester");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

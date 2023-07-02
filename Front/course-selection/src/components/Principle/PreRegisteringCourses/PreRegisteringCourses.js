@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -14,13 +14,60 @@ export default function PreRegisteringCourses() {
   const [sortByStudents, setSortByStudents] = useState(null);
   const [showAllCourses, setShowAllCourses] = useState(false);
   const coursesPerPage = 6;
-  const [currentPage, setCurrentPage] = useState(1);
+
   let { semesterID } = useParams();
-  const semester = allSemesters.find(
-    (semester) => semester.id === Number(semesterID)
-  );
+  const [semester, setSemester] = useState([])
+  const [preRegistrationCourses, setPreRegistrationCourses] = useState([])
+  // const semester = allSemesters.find(
+  //   (semester) => semester.id === Number(semesterID)
+  // );
+
+  useEffect(() => {
+    const fetchSemester = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        const role = localStorage.getItem("role");
+        const response = await fetch(`http://localhost:9090/api/term/${semesterID}/preregistration_courses`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          role : `${role}`
+        },
+      });
+
+      const responseSemester = await fetch(`http://localhost:9090/api/term/${semesterID}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          role : `${role}`
+        },
+      });
+
+        const dataSemester = await responseSemester.json();
+        setSemester(dataSemester)
+
+        const data = await response.json();
+        console.log(data.preRegCoursesNames);
+        setPreRegistrationCourses(data.preRegCoursesNames)
+        
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchSemester();
+  }, [semesterID]);
+
+
+
+
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
+    const { value } = event.target;
+    setSearchQuery(value);
+    
+    
+
+    
     // Reset the current page when the search query changes
   };
 
@@ -33,15 +80,17 @@ export default function PreRegisteringCourses() {
   };
   const handleShowLess = () => {
     setShowAllCourses(false);
-    setCurrentPage(1);
+    //setCurrentPage(1);
   };
 
-  let filteredCourses = semester ? semester.courses : [];
+  let filteredCourses =  preRegistrationCourses? preRegistrationCourses : [];
 
   if (searchQuery) {
-    filteredCourses = filteredCourses.filter((course) =>
-      course.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    console.log(searchQuery);
+    console.log(filteredCourses);
+   filteredCourses =  filteredCourses.filter( course => course.toLowerCase().includes(searchQuery) )
+   console.log(filteredCourses);
+  
   }
 
   if (sortByStudents === "most") {
@@ -54,11 +103,7 @@ export default function PreRegisteringCourses() {
     );
   }
 
-  const lastIndex = currentPage * coursesPerPage;
-  const firstIndex = lastIndex - coursesPerPage;
-  const currentCourses = showAllCourses
-    ? filteredCourses
-    : filteredCourses.slice(firstIndex, lastIndex);
+
   return (
     <div className="semester">
       <div className="header">
@@ -96,12 +141,11 @@ export default function PreRegisteringCourses() {
           </div>
 
           <ul className="registeringCoursesListContainer list">
-            {currentCourses.map((course, index) => (
+            {filteredCourses.map((course, index) => (
              
                 <Card className="card registeringCoursesList">
                   <li>
-                    <p className="courseName"> {course.name} </p>
-                    <p className="numberOfRegistered"> {course.students.length} Registered </p>
+                    <p className="courseName"> {filteredCourses[index]} </p>
                     <span className="registeringCoursesBtns">
                      <Link  to={'StudentList/'+course.id}>  <Button variant="outlined"> Information </Button> </Link>
                       <Button variant="outlined"> Delete </Button>
@@ -112,7 +156,7 @@ export default function PreRegisteringCourses() {
             ))}
           </ul>
 
-          {filteredCourses.length > coursesPerPage && (
+          {preRegistrationCourses.length > coursesPerPage && (
             <div className="btn-container">
               {!showAllCourses ? (
                 <Button className="show-more-btn" onClick={handleShowMore}>
