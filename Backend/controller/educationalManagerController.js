@@ -163,6 +163,21 @@ const getPreregistrations = asyncHandler(async (req, res) => {
     }
 });
 
+const getRegistrations = asyncHandler(async (req, res) => {
+    const term = await Semester.findById(req.params.id);
+    if (!term) {
+        res.status(404);
+        throw new Error("Term not found");
+    }
+
+    try {
+        const registrations = term.registrations;
+        res.status(200).json({registrations});
+    } catch (err) {
+        res.status(500).json({error: err.message});
+    }
+});
+
 
 
 // ADD A COURSE TO REGISTRATION COURSE LIST FOR A SEMESTER
@@ -359,6 +374,7 @@ module.exports = {
     getRegistrationCourseList,
     removeCourseFromRegistration,
     getPreregistrations,
+    getRegistrations,
 
     addCourseRequest,
     getCourseRequests,

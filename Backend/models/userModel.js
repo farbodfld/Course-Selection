@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema(
     mobilePhone: String,
     role: {
       type: String,
-      enum: ["admin", "manager", "student", "professor"],
+      enum: ["admin", "manager", "student", "professor", "mentor"],
       required: [true]
     },
   },

@@ -48,6 +48,9 @@ router.delete('/term/:id/registration', educationalManagerController.removeCours
 // GET: VIEW PREREGISTRATION LIST FOR COURSES IN A SEMESTER
 router.get('/term/:id/preregistrations', educationalManagerController.getPreregistrations);
 
+// GET: VIEW REGISTRATION LIST FOR COURSES IN A SEMESTER
+router.get('/term/:id/registrations', educationalManagerController.getRegistrations);
+
 // // GET: VIEW PREREGISTRATION LIST FOR A COURSE
 // router.get('/course/:id/preregistrations', educationalManagerController.getPreregistrationsForCourse);
 
