@@ -212,6 +212,7 @@ const router = require("express").Router()
  */
 
 const student_controller = require("../controller/studentController")
+const educationalManagerController = require('../controller/educationalManagerController');
 
 const tokenValidation = require("../middleware/tokenValidation")
 router.use(tokenValidation)
@@ -230,5 +231,11 @@ router.route("/student/:id").put(student_controller.updateStudent)
 
 // DELETE: DELETE STUDENT BY ADMIN
 router.route("/student/:id").delete(student_controller.deleteStudent)
+
+// GET: LIST OF TERMS
+router.get('/terms', educationalManagerController.getSemesters);
+
+// GET: VIEW PREREGISTRATION COURSE LIST FOR A SEMESTER
+router.get('/term/:id/preregistration_courses', educationalManagerController.getPreregistrationCourseList);
 
 module.exports = router
