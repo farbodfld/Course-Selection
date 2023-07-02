@@ -58,7 +58,7 @@ const addCourseToPreregReq = asyncHandler(async (req, res) => {
 });
 
 const getPreregReqs = asyncHandler(async (req, res) => {
-    if (req.user.role === "student" || req.user.role === "manager") {
+    if (req.user.role === "admin" || req.user.role === "manager") {
         const preregReq = await CourseRequest.find();
         res.status(200).json(preregReq);
     } else {

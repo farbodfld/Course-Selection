@@ -25,7 +25,7 @@ let studentAddedRoutes = require("./routes/studentsAddedRoutes");
 let courseRequestRoutes = require("./routes/courseRequestRoutes");
 
 // Users APIs routes
-app.use("/api", userRoutes, professorRoutes, studentRoutes, courseRoutes, educationalManagerRoutes, professorAddedRoutes, studentAddedRoutes, courseRequestRoutes)
+app.use("/api", userRoutes, professorRoutes, studentRoutes, courseRoutes, educationalManagerRoutes, professorAddedRoutes, /*studentAddedRoutes,*/ courseRequestRoutes)
 
 // admin APIs routes
 app.use("/api/admin", professorRoutes, studentRoutes, managerRoutes)
