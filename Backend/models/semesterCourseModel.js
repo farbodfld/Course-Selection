@@ -9,7 +9,6 @@ const semesterCourseSchema = new mongoose.Schema(
         lecturer: String,
         capacity: Number,
         academicSemester: String,
-        preregisteredStudents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     },
     {
         timestamps: true,
