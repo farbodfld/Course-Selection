@@ -7,7 +7,8 @@ const validateToken = require("../middleware/tokenValidation");
 
 router.use(validateToken);
 
-router.route("/student/preregister/getPreregister").post(createPreregReq).get(getPreregReqs);
+router.route("/student/preregister").post(createPreregReq);
+router.route("/student/preregister/getPreregister").get(getPreregReqs);
 router.route("/course/preregister/:id").post(addCourseToPreregReq);
 
 module.exports = router;
