@@ -25,7 +25,7 @@
 /**
  * @swagger
  * tags:
- *   name: Registeration Courses
+ *   name: preregister
  * /api/student/preregister:
  *   post:
  *     security:
@@ -95,8 +95,8 @@
 /**
  * @swagger
  * tags:
- *   name: Registeration Courses
- * /api/course/preregister/:id:
+ *   name: preregister_course
+ * /api/course/preregister/{id}:
  *   post:
  *     security:
  *       - bearerAuth: []
@@ -134,7 +134,7 @@
  *       401:
  *         description: Access token is missing or invalid
  *
- * /api/course/:id/preregistrations:
+ * /api/course/{id}/preregistrations:
  *   get:
  *     security:
  *       - bearerAuth: []
