@@ -9,29 +9,29 @@ import { useSelector } from "react-redux";
 export default function StudentSemesters() {
 
 
-  const [semesters, setSemesters] = useState();
+  const [semesters, setSemesters] = useState(allSemesters);
   const [showAll, setShowAll] = useState(false);
   const { mode } = useSelector((state) => state.darkMode);
 
-  useEffect(() => {
-    const fetchTerms = async () => {
-      try {
-        const response = await fetch("http://localhost:9090/api/terms", {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InJvbGUiOiJhZG1pbiIsImVtYWlsIjoiZkAiLCJpZCI6IjY0NTdhZGQxZjdmMmVlYmQzM2Q5NjgxMyJ9LCJpYXQiOjE2ODgxMDA4NTcsImV4cCI6MTY4ODEwMTQ1N30.HnWf5U8ikExZZJ8Hz5yyStkXhmR-UHGf8Ur1XR7tlLs"
-          },
-        });
-        const data = await response.json();
-        console.log(data);
-        setSemesters(data)
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchTerms = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:9090/api/terms", {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InJvbGUiOiJhZG1pbiIsImVtYWlsIjoiZkAiLCJpZCI6IjY0NTdhZGQxZjdmMmVlYmQzM2Q5NjgxMyJ9LCJpYXQiOjE2ODgxMDA4NTcsImV4cCI6MTY4ODEwMTQ1N30.HnWf5U8ikExZZJ8Hz5yyStkXhmR-UHGf8Ur1XR7tlLs"
+  //         },
+  //       });
+  //       const data = await response.json();
+  //       console.log(data);
+  //       setSemesters(data)
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    fetchTerms();
-  }, []);
+  //   fetchTerms();
+  // }, []);
   
   const handleShowMore = () => {
     setShowAll(true);
