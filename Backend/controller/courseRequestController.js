@@ -67,8 +67,25 @@ const getPreregReqs = asyncHandler(async (req, res) => {
     }
 });
 
+const deletePreregReqs = asyncHandler(async (req, res) => {
+    if (req.user.role !== "student" || req.user.role !== "admin") {
+        res.status(400);
+        throw new Error("you are not student");
+    }
+
+    const preregreq = await CourseRequest.findById(req.params.id);
+    if (!preregreq) {
+        res.status(404);
+        throw new Error("preregister request not found");
+    }
+
+    await CourseRequest.deleteOne(preregreq);
+    res.status(200).json(preregreq);
+});
+
 module.exports = {
     createPreregReq,
     addCourseToPreregReq,
-    getPreregReqs
+    getPreregReqs,
+    deletePreregReqs
 }
