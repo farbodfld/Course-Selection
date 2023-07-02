@@ -84,9 +84,32 @@ const deleteRegReqs = asyncHandler(async (req, res) => {
     res.status(200).json(Regreq);
 });
 
+const acceptRegistration = asyncHandler(async (req, res) => {
+    if (req.user.role === "mentor" || req.user.role === "assistance") {
+        let reg = await CourseRegistration.findById(req.params.id)
+        if (!reg) {
+            res.status(404)
+            console.log("Not Found: registration did not found!!")
+            throw new Error("Not Found")
+        }
+  
+        let updatedReg = await CourseRegistration.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {new: true}
+        )
+        res.status(200).json(updatedReg);
+    } else {
+        res.status(401)
+        console.log("Unauthorized: You are not permitioned!")
+        throw new Error("Unauthorized")
+    }
+  })
+
 module.exports = {
     createRegReq,
     addCourseToRegReq,
     getRegReqs,
-    deleteRegReqs
+    deleteRegReqs,
+    acceptRegistration
 }

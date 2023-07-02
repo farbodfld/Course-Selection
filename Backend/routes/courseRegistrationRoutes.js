@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { getRegReqs, createRegReq, addCourseToRegReq, deleteRegReqs } = require("../controller/courseRegistrationController");
+const { getRegReqs, createRegReq, addCourseToRegReq, deleteRegReqs, acceptRegistration } = require("../controller/courseRegistrationController");
 
 const validateToken = require("../middleware/tokenValidation");
 
@@ -21,5 +21,8 @@ router.route("/course/:id/registrations").get(getRegReqs);
 
 // DELETE: PREREGISTER COURSE.
 router.route("/course/register/:id").get(deleteRegReqs);
+
+//PUT: ACCEPT OR REFUSE THE REGISTRATION REQUEST.
+router.route("/registration/:id").put(acceptRegistration);
 
 module.exports = router;
