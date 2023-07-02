@@ -156,10 +156,10 @@ const getPreregistrations = asyncHandler(async (req, res) => {
     }
 
     try {
-        const Preregistrations = term.preregistrations; // Get the preRegCoursesNames array
-        res.status(200).json({Preregistrations}); // Return the preRegCoursesNames array in the response
+        const Preregistrations = term.preregistrations;
+        res.status(200).json({Preregistrations});
     } catch (err) {
-        res.status(500).json({error: err.message}); // Handle any errors
+        res.status(500).json({error: err.message});
     }
 });
 
