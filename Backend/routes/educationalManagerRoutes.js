@@ -46,12 +46,12 @@ router.delete('/term/:id/registration', educationalManagerController.removeCours
 
 
 // GET: VIEW PREREGISTRATION LIST FOR COURSES IN A SEMESTER
-router.get('/term/:id/preregistrations', educationalManagerController.getPreregistrationCourseList);
+router.get('/term/:id/preregistrations', educationalManagerController.getPreregistrations);
 
-// GET: VIEW PREREGISTRATION LIST FOR A COURSE
-router.get('/course/:id/preregistrations', educationalManagerController.getPreregistrationsForCourse);
+// // GET: VIEW PREREGISTRATION LIST FOR A COURSE
+// router.get('/course/:id/preregistrations', educationalManagerController.getPreregistrationsForCourse);
 
-// PUT: CONFIRM OR REJECT COURSE REGISTRATION OF A STUDENT
-router.put('/registration/:id', educationalManagerController.confirmOrRejectCourseRegistration);
+// // PUT: CONFIRM OR REJECT COURSE REGISTRATION OF A STUDENT
+// router.put('/registration/:id', educationalManagerController.confirmOrRejectCourseRegistration);
 
 module.exports = router;
