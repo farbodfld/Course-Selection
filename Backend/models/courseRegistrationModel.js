@@ -2,14 +2,10 @@ const mongoose = require('mongoose')
 
 const CourseRegistrationSchema = new mongoose.Schema(
     {
-        student: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Student',
-        },
-        courses: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'SemesterCourse',
-        }],
+        studentId: String,
+        termName: String,
+        selectedCoursesIds: [String],
+        isApproved: Boolean
     },
     {
         timestamps: true,

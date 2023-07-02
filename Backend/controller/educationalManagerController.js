@@ -159,10 +159,25 @@ const getPreregistrations = asyncHandler(async (req, res) => {
     }
 
     try {
-        const Preregistrations = term.preregistrations; // Get the preRegCoursesNames array
-        res.status(200).json({Preregistrations}); // Return the preRegCoursesNames array in the response
+        const Preregistrations = term.preregistrations;
+        res.status(200).json({Preregistrations});
     } catch (err) {
-        res.status(500).json({error: err.message}); // Handle any errors
+        res.status(500).json({error: err.message});
+    }
+});
+
+const getRegistrations = asyncHandler(async (req, res) => {
+    const term = await Semester.findById(req.params.id);
+    if (!term) {
+        res.status(404);
+        throw new Error("Term not found");
+    }
+
+    try {
+        const registrations = term.registrations;
+        res.status(200).json({registrations});
+    } catch (err) {
+        res.status(500).json({error: err.message});
     }
 });
 
@@ -362,6 +377,7 @@ module.exports = {
     getRegistrationCourseList,
     removeCourseFromRegistration,
     getPreregistrations,
+    getRegistrations,
 
     addCourseRequest,
     getCourseRequests,

@@ -1,8 +1,8 @@
 const asyncHandler = require('express-async-handler');
-const CourseRequest = require('../models/courseRequestModel');
+const CourseRegistration = require('../models/courseRegistrationModel');
 const Semester = require('../models/semesterModel');
 
-const createPreregReq = asyncHandler(async (req, res) => {
+const createRegReq = asyncHandler(async (req, res) => {
     if (req.user.role !== "student") {
         res.status(400);
         throw new Error("you are not student");
@@ -11,14 +11,15 @@ const createPreregReq = asyncHandler(async (req, res) => {
     console.log("req is : ", req.body);
     const termName = req.body.termName;
     const selectedCoursesIds = req.body.selectedCoursesIds;
+    const isApproved = false
 
-    console.log("input is : ", {studentId, termName, selectedCoursesIds});
-    const PreregReq = await CourseRequest.create({studentId, termName, selectedCoursesIds});
-    res.status(201).json(PreregReq);
+    console.log("input is : ", {studentId, termName, selectedCoursesIds, isApproved});
+    const RegReq = await CourseRegistration.create({studentId, termName, selectedCoursesIds, isApproved});
+    res.status(201).json(RegReq);
 });
 
 
-const addCourseToPreregReq = asyncHandler(async (req, res) => {
+const addCourseToRegReq = asyncHandler(async (req, res) => {
     console.log('hiiii')
     if (req.user.role !== "student") {
         res.status(400);
@@ -30,14 +31,14 @@ const addCourseToPreregReq = asyncHandler(async (req, res) => {
         const update = {
             $push: {selectedCoursesIds: selectedCoursesIds}
         };
-        const preReq = await CourseRequest.findOneAndUpdate(
+        const preReq = await CourseRegistration.findOneAndUpdate(
             req.params.id,
             update,
             {new: true}
         );
 
         const updateTerm = {
-            $push: {preregistrations: studentNumber}
+            $push: {registrations: studentNumber}
         };
         const term = await Semester.findOneAndUpdate(
             termID,
@@ -47,7 +48,7 @@ const addCourseToPreregReq = asyncHandler(async (req, res) => {
         console.log("updated term is: ", term)
 
         if (!preReq) {
-            return res.status(404).json({message: "preReq not found"});
+            return res.status(404).json({message: "Req not found"});
         }
 
         return res.status(200).json(preReq);
@@ -57,35 +58,35 @@ const addCourseToPreregReq = asyncHandler(async (req, res) => {
     }
 });
 
-const getPreregReqs = asyncHandler(async (req, res) => {
+const getRegReqs = asyncHandler(async (req, res) => {
     if (req.user.role === "student" || req.user.role === "manager") {
-        const preregReq = await CourseRequest.find();
-        res.status(200).json(preregReq);
+        const RegReq = await CourseRegistration.find();
+        res.status(200).json(RegReq);
     } else {
         res.status(400);
         throw new Error("hey");
     }
 });
 
-const deletePreregReqs = asyncHandler(async (req, res) => {
+const deleteRegReqs = asyncHandler(async (req, res) => {
     if (req.user.role !== "student" || req.user.role !== "admin") {
         res.status(400);
         throw new Error("you are not student");
     }
 
-    const preregreq = await CourseRequest.findById(req.params.id);
-    if (!preregreq) {
+    const Regreq = await CourseRegistration.findById(req.params.id);
+    if (!Regreq) {
         res.status(404);
-        throw new Error("preregister request not found");
+        throw new Error("register request not found");
     }
 
-    await CourseRequest.deleteOne(preregreq);
-    res.status(200).json(preregreq);
+    await CourseRegistration.deleteOne(Regreq);
+    res.status(200).json(Regreq);
 });
 
 module.exports = {
-    createPreregReq,
-    addCourseToPreregReq,
-    getPreregReqs,
-    deletePreregReqs
+    createRegReq,
+    addCourseToRegReq,
+    getRegReqs,
+    deleteRegReqs
 }
