@@ -1,5 +1,5 @@
 import React, { useState  , useEffect} from "react";
-import "./TeacherAssistance.css";
+import "./GuideProfessor.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, Outlet } from "react-router-dom";
 import { Divider } from '@mui/material';
@@ -12,13 +12,13 @@ import { AppBar , Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {Authentication , NavigateToRole} from '../../Authentication/Authentication'
 
-export const TeacherAssistance = () => {
+export const GuideProfessor = () => {
   useEffect(() => {
 
 
     
     
-     
+    Authentication('professor')
     
     
   
@@ -64,7 +64,7 @@ export const TeacherAssistance = () => {
         </div>
       </AppBar>
       <div className={showSmallScreenSideNav ? "smallScreenSideNav" : "none"}>
-        <Link onClick={handleMenuClick} to="/teacher-assistant">
+        <Link onClick={handleMenuClick} to="/GuideProfessor">
           <ArrowRightIcon /> See Semesters
         </Link>
         <Divider/>
@@ -74,7 +74,7 @@ export const TeacherAssistance = () => {
           <Outlet />
         </div>
         <div className="sideNav">
-          <Link to="/teacher-assistant">
+          <Link to="/GuideProfessor">
             <ArrowRightIcon /> See Semesters
           </Link>
         </div>

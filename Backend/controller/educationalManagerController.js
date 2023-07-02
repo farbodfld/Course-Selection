@@ -67,12 +67,15 @@ const updateSemester = asyncHandler(async (req, res) => {
 
 // DELETE A SEMESTER BY ID
 const deleteSemester = asyncHandler(async (req, res) => {
-    if (req.user.role !== "manager" || req.user.role !== "admin") {
+    console.log(req.user.role !== "admin");
+    const term = await Semester.findById(req.params.id);
+    console.log(term);
+    if ( req.user.role !== "admin" && req.user.role !== "manager"  ) {
         res.status(400);
         throw new Error("you are not manager or admin");
     }
 
-    const term = await Semester.findById(req.params.id);
+   // const term = await Semester.findById(req.params.id);
     if (!term) {
         res.status(404);
         throw new Error("Term not found");

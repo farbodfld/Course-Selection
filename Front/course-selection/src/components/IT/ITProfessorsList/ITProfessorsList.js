@@ -73,9 +73,9 @@ export default function ITProfessorList() {
 
         <ul className="list">
           {professors.map((professor) => (
-            <Card className="card">
+            <Card key={professor.id} className="card">
               <li
-                key={professor.id}
+                
                 style={{
                   display: "flex",
                   alignItems: "center",

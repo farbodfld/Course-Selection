@@ -77,7 +77,7 @@ export default function ITPresidentList() {
 
         <ul className="list">
           {presidents.map((president) => (
-            <Card className="card">
+            <Card className="card" key={president.id}>
               <li
                 key={president.id}
                 style={{

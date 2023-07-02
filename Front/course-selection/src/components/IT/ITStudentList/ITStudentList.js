@@ -71,9 +71,9 @@ export default function ITStudentList() {
 
         <ul className="list">
           {students.map((student) => (
-            <Card className="card">
+            <Card className="card" key={student.id}>
               <li
-                key={student.id}
+                
                 style={{
                   display: "flex",
                   alignItems: "center",

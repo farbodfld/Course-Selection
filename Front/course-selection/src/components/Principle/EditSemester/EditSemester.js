@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
@@ -13,7 +13,9 @@ import "./EditSemester.css";
 import { Link } from "react-router-dom";
 import allSemesters from "../../../mockdata";
 
+
 export default function EditSemester() {
+
   const students = [
     { id: 1, name: "John" },
     { id: 2, name: "Jane" },
@@ -26,16 +28,49 @@ export default function EditSemester() {
     { id: 3, name: "Dr. Brown" },
   ];
   let { id } = useParams();
-  const semester = allSemesters.find((semester) => semester.id === Number(id));
+  //const semester = allSemesters.find((semester) => semester.id === Number(id));
 
-  const [name, setName] = useState(semester.name);
+
+  const [semester, setsemester] = useState({})
+  const [name, setName] = useState('');
   const [selectedStudent, setSelectedStudent] = useState("");
   const [selectedProfessor, setSelectedProfessor] = useState("");
+
+  useEffect(() => {
+    const fetchTermById = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        const response = await fetch(`http://localhost:9090/api/term/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        const data = await response.json();
+        console.log(data);
+        setsemester( data )
+        setName( data.name )
+         
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchTermById();
+  }, []);
+
+
+
+
+
   const handleNameChange = (event) => {
     setName(event.target.value);
+
   };
 
   const handleStudentChange = (event) => {
+    console.log(event.target);
     setSelectedStudent(event.target.value);
   };
 
@@ -43,14 +78,42 @@ export default function EditSemester() {
     setSelectedProfessor(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Form submitted");
     console.log("Name:", name);
     console.log("Selected Student:", selectedStudent);
     console.log("Selected Professor:", selectedProfessor);
-    // Additional logic for form submission
+  
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const response = await fetch(`http://localhost:9090/api/term/${id}`, {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          name: name,
+          users: selectedStudent,
+          professor: selectedProfessor,
+        }),
+      });
+  
+      if (response.ok) {
+        console.log("Data updated successfully");
+        // Additional logic after successful update
+      } else {
+        console.error("Failed to update data");
+        // Additional error handling
+      }
+    } catch (error) {
+      console.error(error);
+      // Additional error handling
+    }
   };
+
+
 
   return (
     <div style={{ height: "80%" }} className="semester">
@@ -80,7 +143,7 @@ export default function EditSemester() {
               variant="outlined"
             >
               {students.map((student) => (
-                <MenuItem key={student.id} value={student.id}>
+                <MenuItem    key={student.id} value={student.name}>
                   {student.name}
                 </MenuItem>
               ))}
@@ -113,7 +176,7 @@ export default function EditSemester() {
               variant="outlined"
             >
               {professors.map((professor) => (
-                <MenuItem key={professor.id} value={professor.id}>
+                <MenuItem key={professor.id} value={professor.name}>
                   {professor.name}
                 </MenuItem>
               ))}

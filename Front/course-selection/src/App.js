@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "./components/Login/Login";
-import { TeacherAssistance } from "./components/TA/TeacherAssistance";
+import { GuideProfessor } from "./components/Guide-professor/GuideProfessor";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import "./App.css";
 
-import Semesters from "./components/TA/Semesters/Semesters";
-import Semester from "./components/TA/Semester/Semester";
-import Course from "./components/TA/Course/Course";
+import Semesters from "./components/Guide-professor/Semesters/Semesters";
+import Semester from "./components/Guide-professor/Semester/Semester";
+import Course from "./components/Guide-professor/Course/Course";
 import { useSelector } from "react-redux";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 
@@ -58,8 +58,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
-        {/* TA */}
-        <Route path="/teacher-assistant" element={<TeacherAssistance />}>
+        {/* Guide-professor */}
+        <Route path="/GuideProfessor" element={<GuideProfessor />}>
           <Route index element={<Semesters />} />
           <Route path=":id" element={<Semester />} />
           <Route path=":id/course/:courseid" element={<Course />} />

@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./Semester.css";
 import Button from "@mui/material/Button";
@@ -14,8 +14,8 @@ import allSemesters from "../../../mockdata";
 
 export default function Semester() {
   let { id } = useParams();
-  const semester = allSemesters.find((semester) => semester.id === Number(id));
-  //const [semester, setsemester] = useState([])
+  //const semester = allSemesters.find((semester) => semester.id === Number(id));
+  const [semester, setsemester] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortByStudents, setSortByStudents] = useState(null);
@@ -23,29 +23,29 @@ export default function Semester() {
   const coursesPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
 
-  // useEffect(() => {
-  //   const fetchTermById = async () => {
-  //     try {
-  //       const accessToken = localStorage.getItem("accessToken");
-   
+  useEffect(() => {
+    const fetchTermById = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        const response = await fetch(`http://localhost:9090/api/term/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
 
-  //       const response = await fetch(`http://localhost:9090/api/term/${id}`, {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //       });
+        const data = await response.json();
+        console.log(data.courses.length);
+        data.courses.length >= 1 ? setsemester(data.courses) : setsemester(  allSemesters.find((semester) => semester.id === 1 ).courses )
+        console.log(allSemesters.find((semester) => semester.id === 1 ).courses );
+        
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  //       const data = await response.json();
-  //       console.log(data);
-  //      // setsemester(data)
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchTermById();
-  // }, []);
+    fetchTermById();
+  }, []);
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
@@ -73,36 +73,34 @@ export default function Semester() {
     setCurrentPage(1); // Reset the current page when switching back to showing limited courses
   };
 
-  let filteredCourses = semester ? semester.courses : [];
+  // let filteredCourses = semester ? semester.courses : [];
 
-  if (searchQuery) {
-    filteredCourses = filteredCourses.filter((course) =>
-      course.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }
+  // if (searchQuery) {
+  //   filteredCourses = filteredCourses.filter((course) =>
+  //     course.name.toLowerCase().includes(searchQuery.toLowerCase())
+  //   );
+  // }
 
-  if (sortByStudents === "most") {
-    filteredCourses = [...filteredCourses].sort(
-      (a, b) => b.students.length - a.students.length
-    );
-  } else if (sortByStudents === "least") {
-    filteredCourses = [...filteredCourses].sort(
-      (a, b) => a.students.length - b.students.length
-    );
-  }
+  // if (sortByStudents === "most") {
+  //   filteredCourses = [...filteredCourses].sort(
+  //     (a, b) => b.students.length - a.students.length
+  //   );
+  // } else if (sortByStudents === "least") {
+  //   filteredCourses = [...filteredCourses].sort(
+  //     (a, b) => a.students.length - b.students.length
+  //   );
+  // }
 
-  const lastIndex = currentPage * coursesPerPage;
-  const firstIndex = lastIndex - coursesPerPage;
-  const currentCourses = showAllCourses
-    ? filteredCourses
-    : filteredCourses.slice(firstIndex, lastIndex);
-
-
+  // const lastIndex = currentPage * coursesPerPage;
+  // const firstIndex = lastIndex - coursesPerPage;
+  // const currentCourses = showAllCourses
+  //   ? filteredCourses
+  //   : filteredCourses.slice(firstIndex, lastIndex);
 
   return (
     <div className="semester">
       <div className="header">
-        <p> {semester.name} </p>
+        <p> </p>
         <Button variant="text" onClick={handleOpenDialog}>
           Check Semester Information
         </Button>
@@ -143,22 +141,36 @@ export default function Semester() {
             </div>
           </div>
 
-          <ul className='list'>
-            {currentCourses.map((course, index) => (
-              <Link
-                key={index}
-                to={`/teacher-assistant/${semester.id}/course/${course.id}`}
-              >
-                <Card className="card">
-                  <li>
-                    <p> {course.name} </p>
-                  </li>
-                </Card>
-              </Link>
-            ))}
+          <ul className="list">
+            {semester.map((course, index) => {
+
+                return typeof course === 'string' ? (
+                  <Link key={index} to={`/GuideProfessor/1/course/1`}>
+                  <Card className="card">
+                    <li>
+                      <p> {semester[index]} </p>
+                    </li>
+                  </Card>
+                </Link>
+                ) : (
+                  <Link key={index} to={`/GuideProfessor/1/course/1`}>
+                  <Card className="card">
+                    <li>
+                      <p> {course.name} </p>
+                    </li>
+                  </Card>
+                </Link>
+                );
+            
+              
+            }
+            
+           
+            
+           )}
           </ul>
 
-          {filteredCourses.length > coursesPerPage && (
+          {/* {filteredCourses.length > coursesPerPage && (
             <div className="btn-container">
               {!showAllCourses ? (
                 <Button className="show-more-btn" onClick={handleShowMore}>
@@ -170,9 +182,7 @@ export default function Semester() {
                 </Button>
               )}
             </div>
-          )}
-
-         
+          )} */}
         </div>
       ) : (
         <h2>Semester not found.</h2>

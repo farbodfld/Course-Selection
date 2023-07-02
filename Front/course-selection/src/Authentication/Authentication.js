@@ -16,10 +16,17 @@ export function Authentication( role = '' ){
     }
 
     if( role ){
-        const userRole = localStorage.getItem("role");
-        console.log(userRole);
-        console.log( role );
-        userRole !== role && NavigateToRole("unauthorized")
+
+      const userRole = localStorage.getItem("role");
+
+      if( userRole !== 'admin'){
+
+       
+        console.log(userRole !== role);
+       userRole !== role   && NavigateToRole("unauthorized")
+      }
+
+        
     }
 }
 
@@ -41,7 +48,7 @@ export function NavigateToRole(role){
         break;
       case "professor":
         // Redirect to the professor route
-        location.assign('/teacher-assistant')
+        location.assign('/GuideProfessor')
         break;
 
         case "unauthorized":

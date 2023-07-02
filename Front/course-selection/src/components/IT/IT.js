@@ -18,25 +18,7 @@ export default function IT() {
 
     
     
-    const fetchTerms = async () => {
-      try {
-        const accessToken = localStorage.getItem("accessToken");
-
-        const response = await fetch("http://localhost:9090/api/terms", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-
-        const data = await response.json();
-        console.log(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchTerms();
+    Authentication('admin')
      
     
     

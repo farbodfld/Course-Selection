@@ -64,9 +64,9 @@ export default function Course() {
       <div className="semesters-container">
       <TextField variant="filled" label='Search students' value={searchQuery} onChange={handleSearchChange} />
         <ul className='list'>
-          {students.map((student) => (
-            <Card className="card">
-            <li key={student.id} style={{display : 'flex' , alignItems : 'center' , justifyContent : 'space-between'}}>
+          {students.map((student , index) => (
+            <Card className="card" key={index}>
+            <li  style={{display : 'flex' , alignItems : 'center' , justifyContent : 'space-between'}}>
               <p>{student.fullName}</p>
               <div className="status-buttons">
                 <Button
